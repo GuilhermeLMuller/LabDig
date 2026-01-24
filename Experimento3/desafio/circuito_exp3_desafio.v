@@ -24,7 +24,8 @@ module circuito_exp3_desafio (
     output [6:0] db_contagem,
     output [6:0] db_memoria,
     output [6:0] db_chaves,
-    output [6:0] db_estado
+    output [6:0] db_estado,
+    output [6:0] db_acertou_errou  // MUDANÇA: há uma saída de 7 bits de acertou/errou para o display
 );
 
     wire zeraR_wire;
@@ -33,10 +34,13 @@ module circuito_exp3_desafio (
     wire zeraC_wire;
     wire fimC_wire;
     wire fimDiferente_wire; // MUDANÇA: wire que recebe fimDiferente do fluxo de dados
+    wire [3:0] acertou_errou_wire;  // MUDANÇA: wire que tem a informação se acertou ou errou
     wire [3:0] db_contagem_wire;
     wire [3:0] db_chaves_wire;
     wire [3:0] db_memoria_wire;
     wire [3:0] db_estado_wire;
+
+    assign acertou_errou_wire = (acertou) ? 10 : 14; // MUDANÇA: se acertou vai para 10 (A) se errou vai para 14 (E)
 
     exp3_fluxo_dados FD (
         .clock              (clock),
@@ -87,6 +91,11 @@ module circuito_exp3_desafio (
     hexa7seg HEX5 (
         .hexa    (db_estado_wire),
         .display (db_estado)
+    );
+
+    hexa7seg HEX3 (                      // MUDANÇA: acertou errou no display 3
+        .hexa    (acertou_errou_wire),
+        .display (db_acertou_errou)
     );
 
     assign db_iniciar = iniciar;

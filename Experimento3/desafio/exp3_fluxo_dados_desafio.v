@@ -8,6 +8,7 @@
 // Revisoes  :
 //     Data        Versao  Autor             Descricao
 //     24/01/2026  1.0     Thiago Martins  versao inicial
+//     24/01/2026  1.1     Fernando Ivanov   revisão
 //------------------------------------------------------------------
 //
 

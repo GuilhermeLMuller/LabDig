@@ -41,7 +41,8 @@ module circuito_exp3_desafio (
     wire [3:0] db_memoria_wire;
     wire [3:0] db_estado_wire;
 
-    assign acertou_errou_wire = (acertou) ? 10 : 14; // MUDANÇA: se acertou vai para 10 (A) se errou vai para 14 (E)
+    assign acertou_errou_wire = (acertou) ? 10 
+                              : (errou) ? 14 : 0; // MUDANÇA: se acertou vai para 10 (A) se errou vai para 14 (E)
 
     exp3_fluxo_dados FD (
         .clock              (clock),

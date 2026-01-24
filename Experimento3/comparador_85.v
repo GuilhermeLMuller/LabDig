@@ -12,6 +12,7 @@
  *     21/12/2023  1.0     Edson Midorikawa  criacao
  *     20/01/2026  1.1     Thiago Martins    Revisão
  *     21/01/2026  1.2     Fernando Ivanov   Revisão
+ *     24/01/2026  1.3     Guilherme Muller  Revisão
  * -----------------------------------------------------------------
  */
 

@@ -11,6 +11,7 @@
 //     12/01/2025  1.1     Edson Midorikawa  revisao
 //     20/01/2026  1.2     Thiago Martins    Revisão
 //     21/01/2026  1.3     Fernando Ivanov   Revisão
+//     24/01/2026  1.4     Guilherme Muller  Revisão
 //------------------------------------------------------------------
 //
 module exp3_unidade_controle (

@@ -13,6 +13,7 @@
 //     14/12/2023  1.0     Edson Midorikawa  versao inicial
 //     20/01/2026  1.1     Thiago Martins    Revisão
 //     21/01/2026  1.2     Fernando Ivanov   Revisão
+//     24/01/2026  1.3     Guilherme Muller  Revisão
 //------------------------------------------------------------------
 //
 module contador_163 ( clock, clr, ld, ent, enp, D, Q, rco );

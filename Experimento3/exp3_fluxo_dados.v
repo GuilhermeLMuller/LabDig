@@ -9,6 +9,7 @@
 //     Data        Versao  Autor             Descricao
 //     20/01/2026  1.0     Thiago Martins  versao inicial
 //     21/01/2026  1.1     Fernando Ivanov   Revisão
+//     24/01/2026  1.2     Guilherme Muller  Revisão
 //------------------------------------------------------------------
 //
 

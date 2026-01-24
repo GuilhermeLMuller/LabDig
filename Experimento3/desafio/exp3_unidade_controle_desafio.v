@@ -70,7 +70,7 @@ module exp3_unidade_controle_desafio (
         registraR   = (Eatual == registra) ? 1'b1 : 1'b0;
         contaC      = (Eatual == proximo) ? 1'b1 : 1'b0;
         pronto      = (Eatual == fim) ? 1'b1 : 1'b0;
-        acertou_reg = (Eatual == fim) fimC ? 1'b1 : 1'b0; // MUDANÇA: definição de acertou_reg
+        acertou_reg = (Eatual == fim) && fimC ? 1'b1 : 1'b0; // MUDANÇA: definição de acertou_reg
         errou_reg   = (Eatual == fim) && fimDiferente ? 1'b1 : 1'b0; // MUDANÇA: definição de errou_reg
 
         // Saida de depuracao (estado)

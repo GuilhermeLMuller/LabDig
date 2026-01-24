@@ -74,10 +74,11 @@ module exp3_fluxo_dados_desafio (
     assign db_contagem = s_endereco;
     assign db_memoria = s_dado;
     assign db_chaves = s_chaves;
-    assign chavesIgualMemoria = chavesIgualMemoria_wire // MUDANÇA: output chavesIgualMemoria 
+    assign chavesIgualMemoria = chavesIgualMemoria_wire; // MUDANÇA: output chavesIgualMemoria 
                                                         // recebe o wire chavesIgualMemoria_wire
 
-    assign fimDiferente = ~chavesIgualMemoria_wire // MUDANÇA: output fimDiferente guarda se os
+    assign fimDiferente = ~chavesIgualMemoria_wire; // MUDANÇA: output fimDiferente guarda se os
                                                    // valores inseridos são diferentes
+
 
 endmodule

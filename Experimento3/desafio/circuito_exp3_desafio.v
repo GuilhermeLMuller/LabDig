@@ -53,7 +53,7 @@ module circuito_exp3_desafio (
         .zeraC              (zeraC_wire),
         .chavesIgualMemoria (db_igual),
         .fimC               (fimC_wire),
-        .fimDiferente       (fimDiferente_wire) // MUDANÇA: wire recebe fimDiferente
+        .fimDiferente       (fimDiferente_wire), // MUDANÇA: wire recebe fimDiferente
         .db_contagem        (db_contagem_wire),
         .db_chaves          (db_chaves_wire),
         .db_memoria         (db_memoria_wire)

@@ -8,6 +8,7 @@
  *     Data        Versao  Autor             Descricao
  *     24/01/2026  1.0     Thiago Martins    Desenvolvimento
  *     24/01/2026  1.1     Fernando Ivanov   Revisão
+ *     24/01/2026  1.2     Fernando Ivanov   acertou/errou display
  * -----------------------------------------------------------------
  */
 

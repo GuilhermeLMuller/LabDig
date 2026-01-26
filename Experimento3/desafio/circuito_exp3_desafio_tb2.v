@@ -1,11 +1,11 @@
 /* --------------------------------------------------------------------
- * Arquivo   : circuito_exp3_tb.vhd
+ * Arquivo   : circuito_exp3_desafio_tb2.v
  * Projeto   : Experiencia 3 - Projeto de uma Unidade de Controle
  * --------------------------------------------------------------------
  * Descricao : testbench Verilog para desafio da Experiencia 3 
  *             adaptado a partir do testbench do circuito da experiencia 3
  *
- *             1) plano de teste: 11 casos de teste
+ *             1) plano de teste: 16 casos de teste
  *
  * --------------------------------------------------------------------
  * Revisoes  :

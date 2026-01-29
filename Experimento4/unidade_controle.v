@@ -54,7 +54,7 @@ module unidade_controle (
         case (Eatual)
             inicial:      Eprox = iniciar ? inicializa : inicial;
             inicializa:   Eprox = espera;
-            espera:       Eprox = jogada ? registra : jogada;
+            espera:       Eprox = jogada ? registra : espera;
             registra:     Eprox = compara;
             compara:      Eprox = igual ? (fim ? final_acerto : proxima) : final_erro;
             proxima:      Eprox = espera;
@@ -87,5 +87,6 @@ module unidade_controle (
             default:      db_estado = 4'b1000;  // 8 (erro)
         endcase
     end
+
 
 endmodule

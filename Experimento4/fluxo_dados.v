@@ -76,7 +76,7 @@ module fluxo_dados (
         .AGBi (1'h0), 
         .AEBi (1'h1), 
         .A (data_out_wire), 
-        .B (B_wire), 
+        .B (B_wire),
         .ALBo (ALBo_wire), 
         .AGBo (AGBo_wire), 
         .AEBo (igual)
@@ -88,5 +88,6 @@ module fluxo_dados (
     assign db_memoria = data_out_wire;
     assign db_tem_jogada = WideOr0;
 
+    assign reset_wire = (zeraC || contaC);  // Primeira ideia para o possível valor de reset do edge_detector
 
 endmodule

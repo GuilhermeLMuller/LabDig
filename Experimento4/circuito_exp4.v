@@ -6,8 +6,9 @@
 //          
 //------------------------------------------------------------------
 // Revisoes  :
-//     Data        Versao  Autor             Descricao
-//     29/01/2026  1.0     Thiago Martins  versao inicial
+//     Data        Versao  Autor               Descricao
+//     29/01/2026  1.0     Thiago Martins     versao inicial
+//     31/01/2026  1.1     Fernando Ivanov    ajuste dos leds
 //------------------------------------------------------------------
 //
 
@@ -96,7 +97,7 @@ module circuito_exp4 (
     );
 
     assign db_clock = clock;
-    assign leds = db_memoria_wire;
+    assign leds = db_jogada_wire;
     assign db_igual = igual_wire;
 
 endmodule

@@ -6,13 +6,14 @@
 //          
 //------------------------------------------------------------------
 // Revisoes  :
-//     Data        Versao  Autor             Descricao
-//     29/01/2026  1.0     Thiago Martins  versao inicial
+//     Data        Versao  Autor                 Descricao
+//     29/01/2026  1.0     Thiago Martins      versao inicial
+//     31/01/2026  1.1     Fernando Ivanov       revisão
 //------------------------------------------------------------------
 //
 
 
-// NOTA: AINDA NÃO FOI DEFINIDA A LÓGICA DE reset_wire!!!
+// NOTA: Me parece correto a implementação do reset (Fernando)
 
 module fluxo_dados (
     input clock,
@@ -88,6 +89,6 @@ module fluxo_dados (
     assign db_memoria = data_out_wire;
     assign db_tem_jogada = WideOr0;
 
-    assign reset_wire = (zeraC || contaC);  // Primeira ideia para o possível valor de reset do edge_detector
+    assign reset_wire = (zeraC || contaC);  
 
 endmodule

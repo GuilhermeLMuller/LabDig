@@ -97,7 +97,8 @@ module circuito_exp4 (
     );
 
     assign db_clock = clock;
-    assign leds = db_jogada_wire;
+    assign leds = db_memoria_wire;
     assign db_igual = igual_wire;
+    assign db_iniciar = iniciar;
 
 endmodule

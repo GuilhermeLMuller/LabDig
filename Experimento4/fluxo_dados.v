@@ -90,6 +90,6 @@ module fluxo_dados (
     assign db_memoria = data_out_wire;
     assign db_tem_jogada = WideOr0;
 
-    assign reset_wire = (zeraC || contaC);  
+    assign reset_wire = zeraC;  
 
 endmodule

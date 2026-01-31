@@ -8,6 +8,7 @@
 // Revisoes  :
 //     Data        Versao  Autor             Descricao
 //     29/01/2026  1.0     Thiago Martins  versao inicial
+//     31/01/2026  1.1     Guilherme Muller Correcao de erros
 //------------------------------------------------------------------
 //
 
@@ -18,14 +19,14 @@ module unidade_controle (
     input iniciar,
     input jogada,
     input reset,
-    output acertou,
-    output contaC,
-    output [3:0] db_estado,
-    output errou,
-    output pronto,
-    output registraR,
-    output zeraC,
-    output zeraR
+    output reg acertou,
+    output reg contaC,
+    output reg [3:0] db_estado,
+    output reg errou,
+    output reg pronto,
+    output reg registraR,
+    output reg zeraC,
+    output reg zeraR
 );
 
     // Define estados
@@ -59,7 +60,7 @@ module unidade_controle (
             compara:      Eprox = igual ? (fim ? final_acerto : proxima) : final_erro;
             proxima:      Eprox = espera;
             final_acerto: Eprox = iniciar ? inicializa : final_acerto;
-            final_erro:   Eprox = iniciar ? inicializa : final_erro 
+            final_erro:   Eprox = iniciar ? inicializa : final_erro;
             default:      Eprox = inicial;
         endcase
     end

@@ -13,6 +13,7 @@
  *     Data        Versao  Autor             Descricao
  *     27/01/2024  1.0     Edson Midorikawa  versao inicial
  *     16/01/2024  1.1     Edson Midorikawa  revisao
+ *     31/01/2026  1.2     Guilherme Muller  revisao
  * --------------------------------------------------------------------
  */
 
@@ -51,7 +52,7 @@ module circuito_exp4_tb_modelo;
     always #((clockPeriod / 2)) clock_in = ~clock_in;
 
     // instanciacao do DUT (Device Under Test)
-    circuito_exp5 dut (
+    circuito_exp4 dut (
       .clock          ( clock_in    ),
       .reset          ( reset_in    ),
       .iniciar        ( iniciar_in  ),

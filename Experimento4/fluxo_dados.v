@@ -9,6 +9,7 @@
 //     Data        Versao  Autor                 Descricao
 //     29/01/2026  1.0     Thiago Martins      versao inicial
 //     31/01/2026  1.1     Fernando Ivanov       revisão
+//     31/01/2026  1.2     Guilherme Muller    correcao de erros
 //------------------------------------------------------------------
 //
 
@@ -60,10 +61,10 @@ module fluxo_dados (
     );
 
     sync_rom_16x4  memoria(
-        .clock (clock);
-        .address (memoria_address_wire);
+        .clock (clock),
+        .address (memoria_address_wire),
         .data_out (data_out_wire)
-    )
+    );
 
     edge_detector detector (
         .clock (clock),

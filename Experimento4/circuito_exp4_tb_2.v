@@ -3,7 +3,7 @@
  * Projeto   : Experiencia 4 - Desenvolvimento de Projeto de 
  *             Circuitos Digitais em FPGA
  * --------------------------------------------------------------------
- * Descricao : testbench Verilog MODELO para circuito da Experiencia 5 
+ * Descricao : testbench Verilog MODELO para circuito da Experiencia 4 
  *
  *             1) Plano de teste com 4 jogadas certas  
  *                e erro na quinta jogada

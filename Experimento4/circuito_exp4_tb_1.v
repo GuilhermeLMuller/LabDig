@@ -3,17 +3,16 @@
  * Projeto   : Experiencia 4 - Desenvolvimento de Projeto de 
  *             Circuitos Digitais em FPGA
  * --------------------------------------------------------------------
- * Descricao : testbench Verilog MODELO para circuito da Experiencia 5 
+ * Descricao : testbench Verilog MODELO para circuito da Experiencia 4 
  *
- *             1) Plano de teste com 4 jogadas certas  
- *                e erro na quinta jogada
+ *             1) Plano de teste acertando os dados
+ *              até o final da contagem.
  *
  * --------------------------------------------------------------------
  * Revisoes  :
  *     Data        Versao  Autor             Descricao
- *     27/01/2024  1.0     Edson Midorikawa  versao inicial
- *     16/01/2024  1.1     Edson Midorikawa  revisao
- *     31/01/2026  1.2     Guilherme Muller  revisao
+ *     31/01/2024  1.0     Guilherme Muller  versao inicial
+ *     
  * --------------------------------------------------------------------
  */
 

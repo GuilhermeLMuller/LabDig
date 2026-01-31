@@ -35,7 +35,7 @@ module circuito_exp4 (
     wire igual_wire;
     wire jogada_wire; 
     wire contaC_wire; 
-    wire db_estado_wire;
+    wire [3:0] db_estado_wire;
     wire registraR_wire;
     wire zeraC_wire;
     wire zeraR_wire;

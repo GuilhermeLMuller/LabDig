@@ -32,11 +32,11 @@ module fluxo_dados (
     output [3:0] db_jogada
 );
 
-    wire memoria_address_wire;
-    wire B_wire;
+    wire [3:0] memoria_address_wire;
+    wire [3:0] B_wire;
     wire WideOr0;
     wire reset_wire;
-    wire data_out_wire;
+    wire [3:0] data_out_wire;
 
     wire ALBo_wire;
     wire AGBo_wire;

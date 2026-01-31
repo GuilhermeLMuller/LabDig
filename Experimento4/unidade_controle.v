@@ -9,6 +9,7 @@
 //     Data        Versao  Autor             Descricao
 //     29/01/2026  1.0     Thiago Martins  versao inicial
 //     31/01/2026  1.1     Guilherme Muller Correcao de erros
+//     31/01/2026  1.4     Fernando Ivanov   ajuste nos estados
 //------------------------------------------------------------------
 //
 
@@ -36,8 +37,8 @@ module unidade_controle (
     parameter registra     = 4'b0011;  // 3
     parameter compara      = 4'b0100;  // 4
     parameter proxima      = 4'b0101;  // 5
-    parameter final_acerto = 4'b0110;  // 6
-    parameter final_erro   = 4'b0111;  // 7
+    parameter final_acerto = 4'b1010;  // A
+    parameter final_erro   = 4'b1110;  // E
 
     // Variaveis de estado
     reg [3:0] Eatual, Eprox;
@@ -83,8 +84,8 @@ module unidade_controle (
             registra:     db_estado = 4'b0011;  // 3
             compara:      db_estado = 4'b0100;  // 4
             proxima:      db_estado = 4'b0101;  // 5
-            final_acerto: db_estado = 4'b0110;  // 6
-            final_erro:   db_estado = 4'b0111;  // 7
+            final_acerto: db_estado = 4'b1010;  // A
+            final_erro:   db_estado = 4'b1110;  // E
             default:      db_estado = 4'b1000;  // 8 (erro)
         endcase
     end

@@ -10,11 +10,10 @@
 //     29/01/2026  1.0     Thiago Martins      versao inicial
 //     31/01/2026  1.1     Fernando Ivanov       revisão
 //     31/01/2026  1.2     Guilherme Muller    correcao de erros
+//     05/02/2026  1.3     Guilherme Muller    adaptado para Experimento 5
 //------------------------------------------------------------------
 //
 
-
-// NOTA: Me parece correto a implementação do reset (Fernando)
 
 module fluxo_dados (
     input clock,
@@ -46,11 +45,6 @@ module fluxo_dados (
 	 wire zera_as_wire;
 	 wire Q_wire;
 	 wire meio_wire;
-
-    contador_limite contadorL (
-        .clock (clock),
-        .clr ()
-    )
 
     contador_163 contadorJ (
         .clock (clock), 

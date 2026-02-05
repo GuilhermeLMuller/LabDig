@@ -16,7 +16,7 @@
 
 
 module fluxo_dados (
-    input zeraL, //MUDANCA: SINAL ZERA O contadorLimite
+    input zeraCL, //MUDANCA: SINAL ZERA O contadorLimite
     input contaCL, //MUDANCA: SINAL QUE CONTA O contadorLimite
     input modo,  //MUDANCA: entrada modo
     input clock,
@@ -62,7 +62,7 @@ module fluxo_dados (
 
     contador_163 contadorLimite ( //conta qual a rodada atual
         .clock (clock),
-        .clr (~zeraL),
+        .clr (~zeraCL),
         .ld (1'h1),
         .ent (1'h1),
         .enp (contaCL),

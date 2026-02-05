@@ -12,21 +12,22 @@
  *     Data        Versao  Autor             Descricao
  *     15/02/2024  1.0     Edson Midorikawa  criacao
  *     31/01/2025  1.1     Edson Midorikawa  revisao
+ *     05/02/2026  1.2     Guilherme Muller  mudou para mux de 4 bits
  *------------------------------------------------------------------------
  */
 
 module mux2x1 (
-    input      D0,
-    input      D1,
-    input      SEL,
-    output reg OUT
+    input       [3:0]   D0,
+    input       [3:0]   D1,
+    input               SEL,
+    output reg  [3:0]   OUT
 );
 
 always @(*) begin
     case (SEL)
         1'b0:    OUT = D0;
         1'b1:    OUT = D1;
-        default: OUT = 1'b1; // saida em 1
+        default: OUT = 4'b1; // saida em 1111
     endcase
 end
 

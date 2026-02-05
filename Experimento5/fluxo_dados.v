@@ -26,8 +26,9 @@ module fluxo_dados (
     input registraR,
     input [3:0] chaves,
     input conta,
-    output fimL, //MUDANCA: SINAL DE FIM DO contadorLimite (checa se eh a ultima rodada)
-    output fimRodada, //MUDANCA: sinal para ver se a rodada chegou ao fim
+    output fimL,
+    output fimRodada, //MUDANCA: sinal para ver se a rodada atual acabou
+    output fimTotal, //MUDANCA: sinal para ver se chegou na ultima rodada
     output igual,
     output fimC,
     output jogada_feita,
@@ -49,6 +50,8 @@ module fluxo_dados (
 
     wire ALBoL_wire;
     wire AGBoL_wire;
+    wire ALBoR_wire;
+    wire AGBoR_wire;
 	 
 	wire zera_as_wire;
 	wire Q_wire;
@@ -57,7 +60,7 @@ module fluxo_dados (
     wire mux_wire;
     wire comparadorLimite_wire;
 
-    contador_163 contadorLimite (
+    contador_163 contadorLimite ( //conta qual a rodada atual
         .clock (clock),
         .clr (~zeraL),
         .ld (1'h1),
@@ -70,12 +73,12 @@ module fluxo_dados (
 
     mux2x1 muxL (
         .D0 (4'b1111),
-        .D1 (4'b0100),
+        .D1 (4'b0011),
         .SEL (modo),
         .OUT (mux_wire)
     );
 
-    comparador_85 comparadorL ( //COMPARADOR que checa se a rodada chegou ao fim
+    comparador_85 comparadorFim ( //COMPARADOR que checa se chegou na ultima rodada
         .ALBi (1'h0), 
         .AGBi (1'h0), 
         .AEBi (1'h1), 
@@ -83,6 +86,17 @@ module fluxo_dados (
         .B (comparadorLimite_wire),
         .ALBo (ALBoL_wire), 
         .AGBo (AGBoL_wire), 
+        .AEBo (fimTotal)
+    );
+
+    comparador_85 comparadorRodada ( //Comparador que checa se a rodada atual acabou
+        .ALBi (1'h0), 
+        .AGBi (1'h0), 
+        .AEBi (1'h1), 
+        .A (memoria_address_wire), 
+        .B (comparadorLimite_wire),
+        .ALBo (ALBoR_wire), 
+        .AGBo (AGBoR_wire), 
         .AEBo (fimRodada)
     );
 

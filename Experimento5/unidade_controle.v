@@ -83,7 +83,7 @@ module unidade_controle (
 
     // Logica de saida (maquina Moore)
     always @* begin
-        zeraC     = (Eatual == inicial || Eatual == inicializa) ? 1'b1 : 1'b0;
+        zeraC     = (Eatual == inicial || Eatual == inicializa || Eatual == prox_sequencia) ? 1'b1 : 1'b0;
         zeraR     = (Eatual == inicial) ? 1'b1 : 1'b0;
         registraR = (Eatual == registra) ? 1'b1 : 1'b0;
         contaC    = (Eatual == proxima) ? 1'b1 : 1'b0;

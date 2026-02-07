@@ -92,8 +92,8 @@ module unidade_controle (
         acertou   = (Eatual == final_acerto) ? 1'b1 : 1'b0;
         conta     = (Eatual == espera) ? 1'b1 : 1'b0;
 		errou_timeout = (Eatual == final_timeout) ? 1'b1 : 1'b0;
-        zeraCL    = (Eatual == inicializa) ? 1'b1 : 1'b0;
-        contaCL   = (Eatual == prox_sequencia) ? 1'b1 : 1'b0;
+        zeraCL    = (reset || Eatual == inicializa) ? 1'b1 : 1'b0;
+        contaCL   = (Eatual == prox_sequencia || Eatual == inicializa) ? 1'b1 : 1'b0;
 
         
 

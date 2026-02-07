@@ -30,7 +30,9 @@ module circuito_exp5 (
     output db_clock,
     output db_iniciar,
     output db_tem_jogada,
-    output db_timeout
+    output db_timeout,
+    output db_fimRodada,
+    output db_zeraCL
  );
 
     wire fim_wire;
@@ -68,14 +70,14 @@ module circuito_exp5 (
         .zeraC (zeraC_wire),
         .zeraR (zeraR_wire),
         .conta (conta_wire),
-        .zeraCL (zeraL_wire),
+        .zeraCL (zeraCL_wire),
         .contaCL (contaCL_wire),
         .fimTotal (fimTotal_wire),
-        .fimRodada (fimRodada_wire),
+        .fimRodada (fimRodada_wire)
     );
 
     fluxo_dados FD (
-		  .modo (modo),
+		.modo (modo),
         .clock (clock),
         .zeraC (zeraC_wire),
         .contaC (contaC_wire),
@@ -90,11 +92,11 @@ module circuito_exp5 (
         .db_contagem (db_contagem_wire),
         .db_memoria (db_memoria_wire),
         .db_jogada (db_jogada_wire),
-        .fimT(fim_timeout),
         .zeraCL (zeraCL_wire),
         .contaCL (contaCL_wire),
         .fimTotal (fimTotal_wire),
         .fimRodada (fimRodada_wire),
+        .fimT(fim_timeout)
     );
 
     hexa7seg HEX3(
@@ -121,5 +123,7 @@ module circuito_exp5 (
     assign leds = db_memoria_wire;
     assign db_igual = igual_wire;
     assign db_iniciar = iniciar;
+    assign db_fimRodada = fimRodada_wire;
+    assign db_zeraCL = zeraCL_wire;
 
 endmodule

@@ -26,7 +26,6 @@ module fluxo_dados (
     input registraR,
     input [3:0] chaves,
     input conta,
-    output fimL,
     output fimRodada, //MUDANCA: sinal para ver se a rodada atual acabou
     output fimTotal, //MUDANCA: sinal para ver se chegou na ultima rodada
     output igual,
@@ -54,21 +53,22 @@ module fluxo_dados (
     wire AGBoR_wire;
 	 
 	wire zera_as_wire;
-	wire Q_wire;
+	wire [11:0] Q_wire;
 	wire meio_wire;
+    wire fimL_wire;
     
-    wire mux_wire;
-    wire comparadorLimite_wire;
+    wire [3:0] mux_wire;
+    wire [3:0] comparadorLimite_wire;
 
     contador_163 contadorLimite ( //conta qual a rodada atual
         .clock (clock),
-        .clr (~zeraCL),
+        .clr (~zeraCL),  //zeraCL
         .ld (1'h1),
         .ent (1'h1),
-        .enp (contaCL),
+        .enp (contaCL),  //contaCL
         .D (4'h0),
         .Q (comparadorLimite_wire),
-        .rco (fimL)
+        .rco (fimL_wire)
     );
 
     mux2x1 muxL (

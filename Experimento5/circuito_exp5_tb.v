@@ -6,7 +6,7 @@
  * Descricao : testbench Verilog MODELO para circuito da Experiencia 5 
  *
  *             1) Plano de teste com 4 jogadas certas  
- *                e erro na quinta jogada
+ *                e erro na quinta jogada, modo = 0
  *
  * --------------------------------------------------------------------
  * Revisoes  :
@@ -18,7 +18,7 @@
 
 `timescale 1ns/1ns
 
-module circuito_exp4_tb_modelo;
+module circuito_exp5_tb1;
 
     // Sinais para conectar com o DUT
     // valores iniciais para fins de simulacao (ModelSim)
@@ -26,6 +26,7 @@ module circuito_exp4_tb_modelo;
     reg        reset_in   = 0;
     reg        iniciar_in = 0;
     reg  [3:0] chaves_in  = 4'b0000;
+    reg        modo_in    = 0;  //MUDANCA: adicao do sinal modo
 
     wire       acertou_out;
     wire       errou_out  ;
@@ -40,6 +41,9 @@ module circuito_exp4_tb_modelo;
     wire       db_clock_out      ;
     wire       db_iniciar_out    ;
     wire       db_tem_jogada_out ;
+    wire       db_timeout_out    ;  //MUDANCA: adicao do timeout
+    wire       db_fimRodada_out  ;
+    wire       db_zeraCL_out     ;
 
     // Configuração do clock
     parameter clockPeriod = 1_000_000; // in ns, f=1KHz
@@ -51,11 +55,12 @@ module circuito_exp4_tb_modelo;
     always #((clockPeriod / 2)) clock_in = ~clock_in;
 
     // instanciacao do DUT (Device Under Test)
-    circuito_exp4 dut (
+    circuito_exp5 dut (
       .clock          ( clock_in    ),
       .reset          ( reset_in    ),
       .iniciar        ( iniciar_in  ),
       .chaves         ( chaves_in   ),
+      .modo           ( modo_in     ),
       .acertou        ( acertou_out ),
       .errou          ( errou_out   ),
       .pronto         ( pronto_out  ),
@@ -67,7 +72,10 @@ module circuito_exp4_tb_modelo;
       .db_jogadafeita ( db_jogadafeita_out ),
       .db_clock       ( db_clock_out       ),
       .db_iniciar     ( db_iniciar_out     ),    
-      .db_tem_jogada  ( db_tem_jogada_out  )
+      .db_tem_jogada  ( db_tem_jogada_out  ),
+      .db_timeout     ( db_timeout_out     ),
+      .db_fimRodada   ( db_fimRodada_out   ),
+      .db_zeraCL      ( db_zeraCL_out      )
     );
 
     // geracao dos sinais de entrada (estimulos)
@@ -96,8 +104,10 @@ module circuito_exp4_tb_modelo;
       // espera
       #(10*clockPeriod);
 
-      // Teste 2. iniciar=1 por 5 periodos de clock
+      // Teste 2. escolhe o modo e iniciar=1 por 5 periodos de clock
       caso = 2;
+      modo_in = 0;
+      #(clockPeriod);
       iniciar_in = 1;
       #(5*clockPeriod);
       iniciar_in = 0;

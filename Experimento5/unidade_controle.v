@@ -87,7 +87,7 @@ module unidade_controle (
         zeraR     = (Eatual == inicial) ? 1'b1 : 1'b0;
         registraR = (Eatual == registra) ? 1'b1 : 1'b0;
         contaC    = (Eatual == proxima) ? 1'b1 : 1'b0;
-        pronto    = (Eatual == final_acerto || Eatual == final_erro) ? 1'b1 : 1'b0;
+        pronto    = (Eatual == final_acerto || Eatual == final_erro || Eatual == final_timeout) ? 1'b1 : 1'b0;
         errou     = (Eatual == final_erro || Eatual == final_timeout) ? 1'b1 : 1'b0;
         acertou   = (Eatual == final_acerto) ? 1'b1 : 1'b0;
         conta     = (Eatual == espera) ? 1'b1 : 1'b0;

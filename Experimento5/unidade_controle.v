@@ -50,6 +50,7 @@ module unidade_controle (
     parameter final_acerto           = 4'b1010;  // A
     parameter final_erro             = 4'b1110;  // E
     parameter final_timeout          = 4'b1100;  // C
+    parameter zera_contador         = 4'b1111;  // F
 
     // Variaveis de estado
     reg [3:0] Eatual, Eprox;
@@ -73,7 +74,8 @@ module unidade_controle (
             compara:            Eprox = igual ? (fimRodada ? final_sequencia : proxima) : final_erro; //MUDOU
             proxima:            Eprox = espera;
             final_sequencia:    Eprox = fimTotal ? final_acerto : prox_sequencia;
-            prox_sequencia:     Eprox = inicia_sequencia;
+            prox_sequencia:     Eprox = zera_contador;
+            zera_contador:      Eprox = inicia_sequencia;
             final_acerto:       Eprox = iniciar ? inicializa : final_acerto;
             final_erro:         Eprox = iniciar ? inicializa : final_erro;
             final_timeout:      Eprox = iniciar ? inicializa  : final_timeout;
@@ -83,7 +85,7 @@ module unidade_controle (
 
     // Logica de saida (maquina Moore)
     always @* begin
-        zeraC     = (Eatual == inicial || Eatual == inicializa || Eatual == inicia_sequencia) ? 1'b1 : 1'b0;
+        zeraC = (Eatual == inicial || Eatual == inicializa || Eatual == inicia_sequencia || Eatual == zera_contador) ? 1'b1 : 1'b0;
         zeraR     = (Eatual == inicial) ? 1'b1 : 1'b0;
         registraR = (Eatual == registra) ? 1'b1 : 1'b0;
         contaC    = (Eatual == proxima) ? 1'b1 : 1'b0;
@@ -111,6 +113,7 @@ module unidade_controle (
             final_acerto:       db_estado = 4'b1010;  // A
             final_erro:         db_estado = 4'b1110;  // E
 			final_timeout:      db_estado = 4'b1100; // C
+            zera_contador:      db_estado = 4'b1111; // F
             default:            db_estado = 4'b1001;  // 9 (erro)
         endcase
     end

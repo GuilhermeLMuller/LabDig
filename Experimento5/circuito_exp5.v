@@ -1,14 +1,15 @@
 //------------------------------------------------------------------
-// Arquivo   : circuito_exp4.v
-// Projeto   : Circuito da experiência 4
+// Arquivo   : circuito_exp5.v
+// Projeto   : Circuito da experiência 5
 //------------------------------------------------------------------
-// Descricao : Circuito de integração para experiência 4
+// Descricao : Circuito de integração para experiência 5
 //          
 //------------------------------------------------------------------
 // Revisoes  :
 //     Data        Versao  Autor               Descricao
 //     29/01/2026  1.0     Thiago Martins     versao inicial
 //     31/01/2026  1.1     Fernando Ivanov    ajuste dos leds
+//     07/02/2026  1.2     Guilherme Muller   adaptacao para experiencia 5
 //------------------------------------------------------------------
 //
 
@@ -18,10 +19,13 @@ module circuito_exp5 (
     input iniciar,
     input [3:0] chaves,
     input modo,
+
     output acertou,
     output errou,
     output pronto,
     output [3:0] leds,
+    output timeout,
+
     output db_igual,
     output [6:0] db_contagem,
     output [6:0] db_memoria,
@@ -65,7 +69,7 @@ module circuito_exp5 (
         .db_estado (db_estado_wire),
         .errou (errou),
         .pronto (pronto),
-		.errou_timeout(db_timeout),
+		.errou_timeout(timeout),
         .registraR (registraR_wire),
         .zeraC (zeraC_wire),
         .zeraR (zeraR_wire),
@@ -125,5 +129,6 @@ module circuito_exp5 (
     assign db_iniciar = iniciar;
     assign db_fimRodada = fimRodada_wire;
     assign db_zeraCL = zeraCL_wire;
+    assign db_timeout = timeout;
 
 endmodule

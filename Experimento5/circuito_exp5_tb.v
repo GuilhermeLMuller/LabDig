@@ -1,24 +1,23 @@
-/* --------------------------------------------------------------------
- * Arquivo   : circuito_exp4_tb-MODELO.v
- * Projeto   : Experiencia 4 - Desenvolvimento de Projeto de 
- *             Circuitos Digitais em FPGA
+      /* --------------------------------------------------------------------
+ * Arquivo   : circuito_exp5_tb.v
+ * Projeto   : Experiencia 5 - Jogo com rodadas
  * --------------------------------------------------------------------
- * Descricao : testbench Verilog MODELO para circuito da Experiencia 5 
+ * Descricao : testbench Verilog MODELO para circuito da Experiencia 4 
  *
- *             1) Plano de teste com 4 jogadas certas  
- *                e erro na quinta jogada, modo = 0
+ *             1) Plano de teste acertando os dados
+ *              até o final da contagem e modo = 0.
  *
  * --------------------------------------------------------------------
  * Revisoes  :
  *     Data        Versao  Autor             Descricao
- *     27/01/2024  1.0     Edson Midorikawa  versao inicial
- *     16/01/2024  1.1     Edson Midorikawa  revisao
+ *     07/02/2026  1.0     Guilherme Muller  versao inicial
+ *     
  * --------------------------------------------------------------------
  */
 
 `timescale 1ns/1ns
 
-module circuito_exp5_tb1;
+module circuito_exp5_tb;
 
     // Sinais para conectar com o DUT
     // valores iniciais para fins de simulacao (ModelSim)
@@ -26,7 +25,6 @@ module circuito_exp5_tb1;
     reg        reset_in   = 0;
     reg        iniciar_in = 0;
     reg  [3:0] chaves_in  = 4'b0000;
-    reg        modo_in    = 0;  //MUDANCA: adicao do sinal modo
 
     wire       acertou_out;
     wire       errou_out  ;
@@ -41,9 +39,6 @@ module circuito_exp5_tb1;
     wire       db_clock_out      ;
     wire       db_iniciar_out    ;
     wire       db_tem_jogada_out ;
-    wire       db_timeout_out    ;  //MUDANCA: adicao do timeout
-    wire       db_fimRodada_out  ;
-    wire       db_zeraCL_out     ;
 
     // Configuração do clock
     parameter clockPeriod = 1_000_000; // in ns, f=1KHz
@@ -55,12 +50,11 @@ module circuito_exp5_tb1;
     always #((clockPeriod / 2)) clock_in = ~clock_in;
 
     // instanciacao do DUT (Device Under Test)
-    circuito_exp5 dut (
+    circuito_exp4 dut (
       .clock          ( clock_in    ),
       .reset          ( reset_in    ),
       .iniciar        ( iniciar_in  ),
       .chaves         ( chaves_in   ),
-      .modo           ( modo_in     ),
       .acertou        ( acertou_out ),
       .errou          ( errou_out   ),
       .pronto         ( pronto_out  ),
@@ -72,11 +66,22 @@ module circuito_exp5_tb1;
       .db_jogadafeita ( db_jogadafeita_out ),
       .db_clock       ( db_clock_out       ),
       .db_iniciar     ( db_iniciar_out     ),    
-      .db_tem_jogada  ( db_tem_jogada_out  ),
-      .db_timeout     ( db_timeout_out     ),
-      .db_fimRodada   ( db_fimRodada_out   ),
-      .db_zeraCL      ( db_zeraCL_out      )
+      .db_tem_jogada  ( db_tem_jogada_out  )
     );
+
+task jogada;
+    input [3:0] valor;
+    input integer tempo_on;
+    input integer tempo_off;
+begin
+    @(negedge clock_in);
+    chaves_in = valor;
+    #(tempo_on * clockPeriod);
+    chaves_in = 4'b0000;
+    #(tempo_off * clockPeriod);
+end
+endtask
+
 
     // geracao dos sinais de entrada (estimulos)
     initial begin
@@ -91,7 +96,7 @@ module circuito_exp5_tb1;
       #clockPeriod;
 
       /*
-       * Cenario de Teste exemplo - acerta 4 jogadas e erra a 5a jogada
+       * Cenario de Teste exemplo - modo = 1 e acerta tudo
        */
 
       // Teste 1. resetar circuito
@@ -104,9 +109,9 @@ module circuito_exp5_tb1;
       // espera
       #(10*clockPeriod);
 
-      // Teste 2. escolhe o modo e iniciar=1 por 5 periodos de clock
+      // Teste 2. escolhe modo = 1 e iniciar=1 por 5 periodos de clock
       caso = 2;
-      modo_in = 0;
+      modo_in = 1;
       #(clockPeriod);
       iniciar_in = 1;
       #(5*clockPeriod);
@@ -114,53 +119,173 @@ module circuito_exp5_tb1;
       // espera
       #(10*clockPeriod);
 
-      // Teste 3. jogada #1 (ajustar chaves para 0001 por 10 periodos de clock
       caso = 3;
-      @(negedge clock_in);
-      chaves_in = 4'b0001;
-      #(10*clockPeriod);
-      chaves_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
+      jogada(4'b0001, 10, 10);
 
-      // Teste 4. jogada #2 (ajustar chaves para 0010 por 10 periodos de clock
       caso = 4;
-      @(negedge clock_in);
-      chaves_in = 4'b0010;
-      #(10*clockPeriod);
-      chaves_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-
-      // Teste 5. jogada #3 (ajustar chaves para 0100 por 10 periodos de clock
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+     
       caso = 5;
-      @(negedge clock_in);
-      chaves_in = 4'b0100;
-      #(10*clockPeriod);
-      chaves_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
 
-      // Teste 6. jogada #4 (ajustar chaves para 1000 por 10 periodos de clock
       caso = 6;
-      @(negedge clock_in);
-      chaves_in = 4'b1000;
-      #(10*clockPeriod);
-      chaves_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-
-      // Teste 7. Jogador espera mais de 3 segundos
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
 
       caso = 7;
-      #(3200*clockPeriod);
-      @(negedge clock_in);
-      chaves_in = 4'b0001; // jogada certa = 4'b0100
-      #(5*clockPeriod);
-      chaves_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod); 
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
 
+      caso = 8;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+
+      caso = 9;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+     
+      caso = 10;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+     
+      caso = 11;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+     
+      caso = 12;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0010, 10, 10);
+
+      caso = 13;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+
+      caso = 14;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0100, 10, 10);
+
+      caso = 15;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+     
+      caso = 16;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b1000, 10, 10);
+
+      caso = 17;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0001, 10, 10);
+
+      caso = 18;
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0010, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b0100, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b1000, 10, 10);
+      jogada(4'b0001, 10, 10);
+      jogada(4'b0100, 10, 10);
 
       // final dos casos de teste da simulacao
       caso = 99;

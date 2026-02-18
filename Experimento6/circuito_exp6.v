@@ -16,14 +16,14 @@
 module circuito_exp5 (
     input clock,
     input reset,
-    input iniciar,
-    input [3:0] chaves,
-    input modo,
+    input jogar,  
+    input [3:0] botoes,  
+    input [1:0] configuracao,
 
-    output acertou,
-    output errou,
-    output pronto,
-    output [3:0] leds,
+    output ganhou,
+    output perdeu,  
+    output pronto,  
+    output [3:0] leds,  // Trocar para leds_rgb (de 3 bits [2:0] leds_rgb)
     output timeout,
 
     output db_igual,
@@ -60,14 +60,14 @@ module circuito_exp5 (
     unidade_controle UC (
         .clock (clock),
         .igual (igual_wire),
-        .iniciar (iniciar),
+        .iniciar (jogar),
         .jogada (jogada_wire),
         .reset (reset),
         .fimT(fim_timeout),
-        .acertou (acertou),
+        .acertou (ganhou),
         .contaC (contaC_wire),
         .db_estado (db_estado_wire),
-        .errou (errou),
+        .errou (perdeu),
         .pronto (pronto),
 		.errou_timeout(timeout),
         .registraR (registraR_wire),
@@ -81,13 +81,13 @@ module circuito_exp5 (
     );
 
     fluxo_dados FD (
-		.modo (modo),
+		.modo (configuracao),
         .clock (clock),
         .zeraC (zeraC_wire),
         .contaC (contaC_wire),
         .zeraR (zeraR_wire),
         .registraR (registraR_wire),
-        .chaves (chaves),
+        .chaves (botoes),
         .conta(conta_wire),
         .igual (igual_wire),
         .fimC (fim_wire),
@@ -126,7 +126,7 @@ module circuito_exp5 (
     assign db_clock = clock;
     assign leds = db_memoria_wire;
     assign db_igual = igual_wire;
-    assign db_iniciar = iniciar;
+    assign db_iniciar = jogar;
     assign db_fimRodada = fimRodada_wire;
     assign db_zeraCL = zeraCL_wire;
     assign db_timeout = timeout;

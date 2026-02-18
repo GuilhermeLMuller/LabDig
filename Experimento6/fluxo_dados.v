@@ -18,7 +18,7 @@
 module fluxo_dados (
     input zeraCL, //MUDANCA: SINAL ZERA O contadorLimite
     input contaCL, //MUDANCA: SINAL QUE CONTA O contadorLimite
-    input modo,  //MUDANCA: entrada modo
+    input [1:0] configuracao,  //MUDANCA: entrada modo
     input clock,
     input zeraC,
     input contaC,

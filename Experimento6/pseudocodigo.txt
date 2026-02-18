@@ -1,0 +1,68 @@
+Algorítmo: Jogo do desafio da memória
+    entradas: jogar, botões, configuração, reset
+    saídas: leds, ganhou, perdeu, timeout, pronto
+    depuração: <completar>
+    {
+        // entrada configuração ajusta funcionalidades: 
+        // qual o modo e se há ou não timeout
+
+        while (verdadeiro){
+
+            if(reset) {
+                espera acionamento do sinal jogar
+                inicia o jogo
+            }
+
+            espera o acionamento do sinal jogar
+            inicia circuito para condições iniciais
+            ajusta o circuito para a primeira rodada
+            apresenta jogada inicial por 2 segundos
+
+            // jogador jogada
+
+            while(não atingir final do jogo E não ocorrer uma jogada errada ou                       timeout) {
+
+                // jogador repete as jogadas da rodada anterior
+
+                while (não atingir jogada final da rodada atual E
+                       jogada foi correta E não ocorreu timeout) {
+                        espera jogada do jogador
+                        armazena jogada efetuada
+                        compara jogada efetuada com jogada armazenada
+                        incrementa endereço para a próxima jogada
+
+                        if(reset) {
+                            espera acionamento do sinal jogar
+                            inicia o jogo
+                        }
+                }
+
+                // adição de nova jogada
+                espera jogada decorrente do acionamento dos botões
+                armazena jogada efetuada
+                escreve jogada na memória
+
+                aumenta o tamanho da sequência de jogadas
+                vai para a próxima rodada (reiniciar sequência)
+
+            }
+
+            if (atingiu final do jogo acertando todas as jogadas) {
+                ativa saídas ganhou e pronto
+                espera acionamento do sinal jogar
+                reinicia o jogo
+            }
+
+            if (houve jogada errada) {
+                ativa saídas perdeu e pronto
+                espera acionamento do sinal jogar
+                reinicia o jogo
+            }
+
+            if (houve timeout de jogada) {
+                ativas saídas perdeu, pronto e timeout
+                espera acionamento do sinal jogar
+                reinicia o jogo
+            }
+        }
+    }

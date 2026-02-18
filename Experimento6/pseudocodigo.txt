@@ -20,7 +20,7 @@ Algorítmo: Jogo do desafio da memória
 
             // jogador jogada
 
-            while(não atingir final do jogo E não ocorrer uma jogada errada ou                       timeout) {
+            while(não atingir final do jogo E não ocorrer uma jogada errada ou timeout) {
 
                 // jogador repete as jogadas da rodada anterior
 

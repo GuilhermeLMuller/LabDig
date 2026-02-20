@@ -7,6 +7,7 @@
  * Revisoes  :
  *     Data        Versao  Autor             Descricao
  *     20/02/2026  1.0     Fernando Ivanov   Criacao
+ *     20/02/2026  1.1     Fernando Ivanov   Adição do enable
  *------------------------------------------------------------------------
  */
 
@@ -17,17 +18,21 @@
  // leds_rgb[2] = azul - blue (B)
 
 module decodificador_rgb(
-    input [3:0] dados,
-    output reg [2:0] leds_rgb
- );
-
+    input  wire       en,
+    input  wire [3:0] dados,
+    output reg  [2:0] leds_rgb
+);
     always @(*) begin
-        case (dados)
-            4'b0001: leds_rgb = 3'b010;
-            4'b0010: leds_rgb = 3'b100;
-            4'b0100: leds_rgb = 3'b011;
-            4'b1000: leds_rgb = 3'b001;
-            default: leds_rgb = 3'b000; 
-        endcase
+        if (!en) begin
+            leds_rgb = 3'b000;
+        end else begin
+            case (dados)
+                4'b0001: leds_rgb = 3'b010; // vermelho (R)
+                4'b0010: leds_rgb = 3'b100; // azul (B)
+                4'b0100: leds_rgb = 3'b011; // amarelo (R+G)
+                4'b1000: leds_rgb = 3'b001; // verde (G)
+                default: leds_rgb = 3'b000; // inválido
+            endcase
+        end
     end
- endmodule
+endmodule

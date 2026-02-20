@@ -11,54 +11,77 @@
 //     31/01/2026  1.1     Fernando Ivanov       revisão
 //     31/01/2026  1.2     Guilherme Muller    correcao de erros
 //     05/02/2026  1.3     Guilherme Muller    adaptado para Experimento 5
+//     20/02/2026  1.4     Fernando Ivanov     adaptado para Experimento 6
 //------------------------------------------------------------------
 //
 
 
 module fluxo_dados (
-    input zeraCL, //MUDANCA: SINAL ZERA O contadorLimite
-    input contaCL, //MUDANCA: SINAL QUE CONTA O contadorLimite
-    input [1:0] configuracao,  //MUDANCA: entrada modo
-    input clock,
-    input zeraC,
-    input contaC,
-    input zeraR,
-    input registraR,
-    input [3:0] chaves,
-    input conta,
-    output fimRodada, //MUDANCA: sinal para ver se a rodada atual acabou
-    output fimTotal, //MUDANCA: sinal para ver se chegou na ultima rodada
-    output igual,
-    output fimC,
-    output jogada_feita,
+    input zeraCL, // zera o contador de limite de rodadas
+    input contaCL, // sinal que conta as rodadas
+    input modo, // sinal que indica o modo de jogo (onfiguração[0])
+    input registraModo, // sinal que permite o registro do modo de jogo
+    input clock, // sinal de clock
+    input zeraC, // sinal que zera contador de jogadas
+    input contaC, // sinal que conta no contador de jogadas
+    input escreve, // sinal que permite escrita na ram
+    input zeraR,  // sinal que zera registrador de botões
+    input registraR,  // sinal que permite o registro dos botões 
+    input [3:0] botoes, // botoes com as jogadas feitas
+    input contaTimeout,  // sinal que permite a contagem do contador de timeout
+    input zeraTimeout, // sinal que zera o contador de timeout
+    input contaExibicao, // sinal que permite a contagem do contador do timer
+    input zeraExibicao,  // sinal que zera o contador do timer
+    input resetEdgeDetector, // sinal que zera o edge detector
+    input seletorLedsBM, // seleciona qual a saída será exibida nos leds
+    input mostraLeds,  // sinal que permite a exibição dos leds
+    output fimRodada, // sinal que indica o fim da rodada
+    output fimTotal, // sinal que indica o final do jogo
+    output igual, // sinal que indica que botões é igual a dado de memória
+    output fimC, // sinal que indica o fim da contagem do contador de jogadas
+    output jogada_feita, // sinal que indica que houve jogada
+    output fimTimeout, // sinal que indica que houve timeout
+    output fimExibicao, // sinal que indica que houve fim dos 2 segundos
+    output [2:0] leds_rgb, // sinal que indica os leds RGB
+
+    // SINAIS DE DEPURAÇÃO:
+
     output db_tem_jogada,
     output [3:0] db_contagem,
     output [3:0] db_memoria,
     output [3:0] db_jogada,
-    output fimT
+    output [3:0] db_sequencia // NÃO CONECTADO AINDA
 );
+
+
+    // Fios de conexão 
+
 
     wire [3:0] memoria_address_wire;
     wire [3:0] B_wire;
     wire WideOr0;
-    wire reset_wire;
     wire [3:0] data_out_wire;
-
     wire ALBo_wire;
     wire AGBo_wire;
-
     wire ALBoL_wire;
     wire AGBoL_wire;
     wire ALBoR_wire;
     wire AGBoR_wire;
-	 
-	wire zera_as_wire;
-	wire [11:0] Q_wire;
-	wire meio_wire;
+	wire zera_as_wire_jogada;
+    wire zera_as_wire_exibicao;
+	wire [12:0] Q_wire_timeout;
+    wire [10:0] Q_wire_exibicao;
+	wire meio_wire_timeout;
+    wire meio_wire_exibicao;
     wire fimL_wire;
-    
-    wire [3:0] mux_wire;
-    wire [3:0] comparadorLimite_wire;
+    wire [3:0] muxL_wire;
+    wire [3:0] contadorLimite_wire;
+    wire RegModo_wire;
+    wire [3:0] muxDecoder_wire;
+
+
+    // COMPONENTES:
+
 
     contador_163 contadorLimite ( //conta qual a rodada atual
         .clock (clock),
@@ -67,23 +90,31 @@ module fluxo_dados (
         .ent (1'h1),
         .enp (contaCL),  //contaCL
         .D (4'h0),
-        .Q (comparadorLimite_wire),
+        .Q (contadorLimite_wire),
         .rco (fimL_wire)
+    );
+
+    registrador_1 RegModo (
+        .clock(clock),
+        .clear(1'b0),
+        .enable(registraModo),
+        .D(modo),
+        .Q(RegModo_wire)
     );
 
     mux2x1 muxL (
         .D0 (4'b1111),
         .D1 (4'b0011),
-        .SEL (modo),
-        .OUT (mux_wire)
+        .SEL (RegModo_wire),
+        .OUT (muxL_wire)
     );
 
     comparador_85 comparadorFim ( //COMPARADOR que checa se chegou na ultima rodada
         .ALBi (1'h0), 
         .AGBi (1'h0), 
         .AEBi (1'h1), 
-        .A (mux_wire), 
-        .B (comparadorLimite_wire),
+        .A (muxL_wire), 
+        .B (contadorLimite_wire),
         .ALBo (ALBoL_wire), 
         .AGBo (AGBoL_wire), 
         .AEBo (fimTotal)
@@ -94,7 +125,7 @@ module fluxo_dados (
         .AGBi (1'h0), 
         .AEBi (1'h1), 
         .A (memoria_address_wire), 
-        .B (comparadorLimite_wire),
+        .B (contadorLimite_wire),
         .ALBo (ALBoR_wire), 
         .AGBo (AGBoR_wire), 
         .AEBo (fimRodada)
@@ -111,38 +142,50 @@ module fluxo_dados (
         .rco (fimC)  
     );
 
-    registrador_4 registradorJ (
+    registrador_4 registradorBotoes (
         .clock (clock),
         .clear (zeraR),
         .enable (registraR),
-        .D (chaves),
+        .D (botoes),
         .Q (B_wire)
     );
 
-    sync_rom_16x4  memoria(
-        .clock (clock),
-        .address (memoria_address_wire),
-        .data_out (data_out_wire)
+    sync_ram_16x4_file #(.BINFILE("ram_init.txt")) MemJog (
+        .clk  (clock),  
+        .we   (escreve),  
+        .data (B_wire),
+        .addr (memoria_address_wire),
+        .q    (data_out_wire)   
     );
 
-    edge_detector detector (
+    edge_detector detector ( 
         .clock (clock),
-        .reset (reset_wire),
+        .reset (resetEdgeDetector),
         .sinal (WideOr0),
         .pulso (jogada_feita)
     );
 
-    contador_m contadorM (
+    contador_m #(.M(5000), .N(13)) timerJogada (
         .clock (clock),
-        .zera_as (zera_as_wire),
-        .zera_s (zeraC || jogada_feita),
-        .conta (conta),
-        .Q (Q_wire),
-        .fim (fimT),
-        .meio (meio_wire)
+        .zera_as (zera_as_wire_jogada),
+        .zera_s (zeraTimeout),
+        .conta (contaTimeout),
+        .Q (Q_wire_timeout),
+        .fim (fimTimeout),
+        .meio (meio_wire_timeout)
+    );
+    
+    contador_m #(.M(2000), .N(11)) timerExibicao (
+        .clock (clock),
+        .zera_as (zera_as_wire_exibicao),
+        .zera_s (zeraExibicao),
+        .conta (contaExibicao),
+        .Q (Q_wire_exibicao),
+        .fim (fimExibicao),
+        .meio (meio_wire_exibicao)
     );
 
-    comparador_85 comparador (
+    comparador_85 comparadorJogada (
         .ALBi (1'h0), 
         .AGBi (1'h0), 
         .AEBi (1'h1), 
@@ -153,13 +196,33 @@ module fluxo_dados (
         .AEBo (igual)
     );
 
+
+    mux2x1 muxLed (
+        .D0(B_wire),
+        .D1(data_out_wire),
+        .SEL(seletorLedsBM),
+        .OUT(muxDecoder_wire)
+    );
+
+
+    decodificador_rgb decodificador (
+        .en(mostraLeds),
+        .dados(muxDecoder_wire),
+        .leds_rgb(leds_rgb)
+    );
+
+    // ASSIGNS DE DEPURAÇÃO
+
     assign db_contagem = memoria_address_wire;
     assign db_jogada = B_wire;
-    assign WideOr0 = (chaves[0] || chaves[1] || chaves[2] || chaves[3]);
+    assign db_sequencia = contadorLimite_wire;
     assign db_memoria = data_out_wire;
     assign db_tem_jogada = WideOr0;
 
-    assign reset_wire = zeraR;  
+
+    // ASSIGNS ADICIONAIS PARA LÓGICA COMBINATÓRIA
+
+    assign WideOr0 = (botoes[0] || botoes[1] || botoes[2] || botoes[3]);
 
 
 endmodule

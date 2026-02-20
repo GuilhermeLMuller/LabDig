@@ -17,7 +17,7 @@
  *-----------------------------------------------------------------------
  */
 
-module contador_m #(parameter M=3000, N=12)
+module contador_m #(parameter M, N)
   (
    input  wire          clock,
    input  wire          zera_as,

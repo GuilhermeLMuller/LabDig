@@ -13,6 +13,7 @@
 // Revisoes  :
 //     Data        Versao  Autor             Descricao
 //     02/02/2024  1.0     Edson Midorikawa  versao inicial
+//     20/02/2026  1.1     Fernando Ivanov   revisão
 //------------------------------------------------------------------
 //
 

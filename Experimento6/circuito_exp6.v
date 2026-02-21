@@ -1,8 +1,8 @@
 //------------------------------------------------------------------
-// Arquivo   : circuito_exp5.v
-// Projeto   : Circuito da experiência 5
+// Arquivo   : circuito_exp6.v
+// Projeto   : Circuito da experiência 6
 //------------------------------------------------------------------
-// Descricao : Circuito de integração para experiência 5
+// Descricao : Circuito de integração para experiência 6
 //          
 //------------------------------------------------------------------
 // Revisoes  :
@@ -10,10 +10,11 @@
 //     29/01/2026  1.0     Thiago Martins     versao inicial
 //     31/01/2026  1.1     Fernando Ivanov    ajuste dos leds
 //     07/02/2026  1.2     Guilherme Muller   adaptacao para experiencia 5
+//     20/02/2026  1.3     Fernando Ivanov    adaptacao para experiencia 6
 //------------------------------------------------------------------
 //
 
-module circuito_exp5 (
+module circuito_exp6 (
     input clock,
     input reset,
     input jogar,  

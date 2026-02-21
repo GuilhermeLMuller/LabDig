@@ -42,6 +42,7 @@ module circuito_exp5_tb2;
     wire       db_tem_jogada_out ;
     wire       db_timeout_out    ;  //MUDANCA: adicao do timeout
     wire       db_fimRodada_out  ;
+    wire       db_zeraC_out
     wire       db_zeraCL_out     ;
 
     // Configuração do clock

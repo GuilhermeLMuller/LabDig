@@ -19,7 +19,7 @@
 module fluxo_dados (
     input zeraCL, // zera o contador de limite de rodadas
     input contaCL, // sinal que conta as rodadas
-    input modo, // sinal que indica o modo de jogo (onfiguração[0])
+    input [1:0] modo, // sinal que indica o modo de jogo (onfiguração[0])
     input registraModo, // sinal que permite o registro do modo de jogo
     input clock, // sinal de clock
     input zeraC, // sinal que zera contador de jogadas
@@ -43,6 +43,7 @@ module fluxo_dados (
     output fimTimeout, // sinal que indica que houve timeout
     output fimExibicao, // sinal que indica que houve fim dos 2 segundos
     output [2:0] leds_rgb, // sinal que indica os leds RGB
+    output configTimeout_reg, // sinal que indica a configuração do timeout
 
     // SINAIS DE DEPURAÇÃO:
 
@@ -67,8 +68,6 @@ module fluxo_dados (
     wire AGBoL_wire;
     wire ALBoR_wire;
     wire AGBoR_wire;
-	wire zera_as_wire_jogada;
-    wire zera_as_wire_exibicao;
 	wire [12:0] Q_wire_timeout;
     wire [10:0] Q_wire_exibicao;
 	wire meio_wire_timeout;
@@ -98,8 +97,16 @@ module fluxo_dados (
         .clock(clock),
         .clear(1'b0),
         .enable(registraModo),
-        .D(modo),
+        .D(modo[0]),
         .Q(RegModo_wire)
+    );
+
+    registrador_1 RegTimeoutCfg (
+        .clock(clock),
+        .clear(1'b0),
+        .enable(registraModo),   // ou um sinal próprio
+        .D(modo[1]),
+        .Q(configTimeout_reg)
     );
 
     mux2x1 muxL (
@@ -167,7 +174,7 @@ module fluxo_dados (
 
     contador_m #(.M(5000), .N(13)) timerJogada (
         .clock (clock),
-        .zera_as (zera_as_wire_jogada),
+        .zera_as (1'b0),
         .zera_s (zeraTimeout),
         .conta (contaTimeout),
         .Q (Q_wire_timeout),
@@ -177,7 +184,7 @@ module fluxo_dados (
     
     contador_m #(.M(2000), .N(11)) timerExibicao (
         .clock (clock),
-        .zera_as (zera_as_wire_exibicao),
+        .zera_as (1'b0),
         .zera_s (zeraExibicao),
         .conta (contaExibicao),
         .Q (Q_wire_exibicao),
@@ -198,7 +205,7 @@ module fluxo_dados (
 
 
     mux2x1 muxLed (
-        .D0(B_wire),
+        .D0(botoes),
         .D1(data_out_wire),
         .SEL(seletorLedsBM),
         .OUT(muxDecoder_wire)

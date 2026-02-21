@@ -11,49 +11,74 @@
 //     31/01/2026  1.1     Guilherme Muller Correcao de erros
 //     31/01/2026  1.2     Fernando Ivanov   ajuste nos estados
 //     05/02/2026  1.3     Guilherme Muller  ajuste para exp5
+//     20/02/2026  1.4     Fernando Ivanov   ajuste para exp6
 //------------------------------------------------------------------
 //
 
 module unidade_controle (
     input fimTotal, //fim da ultima rodada
     input fimRodada, //se a rodada atual chegou ao fim
-    input fimT,
+    input fimTimeout,
+    input fimExibicao,
     input clock,
     input igual,
     input iniciar,
     input jogada,
     input reset,
+    input configuracaoTimeout,
+
     output reg acertou,
-    output reg contaC,
-    output reg [3:0] db_estado,
     output reg errou,
     output reg pronto,
-	output reg errou_timeout,
-    output reg registraR,
+    output reg errou_timeout,
+
+    output reg contaC,
     output reg zeraC,
+    output reg registraR,
     output reg zeraR,
-    output reg conta,
     output reg zeraCL,
-    output reg contaCL
+    output reg contaCL,
+
+    output reg registraModo,
+    output reg escreve,
+    output reg leds_BM,
+    output reg mostraLeds,
+
+    output reg contaExibicao,
+    output reg zeraExibicao,
+
+    output reg contaTimeout,
+    output reg zeraTimeout,
+
+    output reg resetEdgeDetector,
+
+
+    output reg [4:0] db_estado
 );
 
     // Define estados
-    parameter inicial                = 4'b0000;  // 0
-    parameter inicializa             = 4'b0001;  // 1
-    parameter inicia_sequencia       = 4'b0010;  // 2
-    parameter espera                 = 4'b0011;  // 3
-    parameter registra               = 4'b0100;  // 4
-    parameter compara                = 4'b0101;  // 5
-    parameter proxima                = 4'b0110;  // 6
-    parameter final_sequencia        = 4'b0111;  // 7 estado em que termina a sequencia atual
-    parameter prox_sequencia         = 4'b1000;  // 8 estado em que vai para a prox_sequencia
-    parameter final_acerto           = 4'b1010;  // A
-    parameter final_erro             = 4'b1110;  // E
-    parameter final_timeout          = 4'b1100;  // C
-    parameter zera_contador         = 4'b1111;  // F
+    parameter inicial                     = 5'b00000;  // 0
+    parameter inicializa                  = 5'b00001;  // 1 
+    parameter prepara_exibicao            = 5'b00010;  // 2
+    parameter mostra_jogada_inicial       = 5'b00011;  // 3
+    parameter inicia_rodada               = 5'b00100;  // 4
+    parameter controla_sequencias         = 5'b00101;  // 5
+    parameter espera_jogada               = 5'b00110;  // 6
+    parameter registra_jogada             = 5'b00111;  // 7
+    parameter compara_jogada              = 5'b01000;  // 8
+    parameter proxima_jogada              = 5'b01001;  // 9
+    parameter final_acerto                = 5'b01010;  // A
+    parameter processa_jogada_adicional   = 5'b01011;  // B
+    parameter espera_jogada_adicional     = 5'b01100;  // C
+    parameter registra_nova_jogada        = 5'b01101;  // D
+    parameter final_erro                  = 5'b01110;  // E
+    parameter grava_jogada                = 5'b01111;  // F
+    parameter aumenta_limite              = 5'b10000;  // 10
+    parameter verifica_fim                = 5'b10001;  // 11
+    parameter final_timeout               = 5'b10010;  // 12
 
     // Variaveis de estado
-    reg [3:0] Eatual, Eprox;
+    reg [4:0] Eatual, Eprox;
 
     // Memoria de estado
     always @(posedge clock or posedge reset) begin
@@ -66,57 +91,198 @@ module unidade_controle (
     // Logica de proximo estado
     always @* begin
         case (Eatual)
-            inicial:            Eprox = iniciar ? inicializa : inicial;
-            inicializa:         Eprox = inicia_sequencia;
-            inicia_sequencia:   Eprox = espera;
-            espera:             Eprox = fimT ? final_timeout : (jogada ? registra : espera);
-            registra:           Eprox = compara;
-            compara:            Eprox = igual ? (fimRodada ? final_sequencia : proxima) : final_erro; //MUDOU
-            proxima:            Eprox = espera;
-            final_sequencia:    Eprox = fimTotal ? final_acerto : prox_sequencia;
-            prox_sequencia:     Eprox = zera_contador;
-            zera_contador:      Eprox = inicia_sequencia;
-            final_acerto:       Eprox = iniciar ? inicializa : final_acerto;
-            final_erro:         Eprox = iniciar ? inicializa : final_erro;
-            final_timeout:      Eprox = iniciar ? inicializa  : final_timeout;
-            default:            Eprox = inicial;
+            inicial:            
+                Eprox = (iniciar) ? inicializa : inicial;
+
+
+            inicializa:         
+                Eprox = prepara_exibicao;
+
+
+            prepara_exibicao:
+                Eprox = mostra_jogada_inicial;
+
+            
+            mostra_jogada_inicial:
+                Eprox = (fimExibicao) ? inicia_rodada : mostra_jogada_inicial;
+
+            
+            inicia_rodada:
+                Eprox = controla_sequencias;
+
+
+            controla_sequencias:
+                Eprox = espera_jogada;
+
+            
+            espera_jogada:
+                Eprox = ((jogada) ? registra_jogada : 
+                                  ((configuracaoTimeout && fimTimeout) ? final_timeout :
+                                                                         espera_jogada));
+
+
+            registra_jogada:
+                Eprox = compara_jogada;
+
+
+            compara_jogada:
+                Eprox = (igual) ? ((fimRodada) ? processa_jogada_adicional : 
+                                                   proxima_jogada) : final_erro;
+
+            
+            proxima_jogada:
+                Eprox = espera_jogada;
+
+            
+            processa_jogada_adicional:
+                Eprox = espera_jogada_adicional;
+
+            
+            espera_jogada_adicional:
+                Eprox = ((jogada) ? registra_nova_jogada :
+                                    ((configuracaoTimeout && fimTimeout) ? final_timeout : 
+                                                                           espera_jogada_adicional));
+
+            
+            registra_nova_jogada:
+                Eprox = grava_jogada;
+
+
+            grava_jogada:
+                Eprox = aumenta_limite;
+
+            
+            aumenta_limite:
+                Eprox = verifica_fim;
+
+            
+            verifica_fim: 
+                Eprox = fimTotal ? final_acerto : inicia_rodada;
+
+
+            
+            final_acerto:
+                Eprox = iniciar ? inicializa : final_acerto;
+
+            
+            final_erro: 
+                Eprox = iniciar ? inicializa : final_erro;
+
+            
+            final_timeout:
+                Eprox = iniciar ? inicializa : final_timeout;
+
+
+            default: Eprox = inicial;
         endcase
     end
 
     // Logica de saida (maquina Moore)
     always @* begin
-        zeraC = (Eatual == inicial || Eatual == inicializa || Eatual == inicia_sequencia || Eatual == zera_contador) ? 1'b1 : 1'b0;
-        zeraR     = (Eatual == inicial) ? 1'b1 : 1'b0;
-        registraR = (Eatual == registra) ? 1'b1 : 1'b0;
-        contaC    = (Eatual == proxima) ? 1'b1 : 1'b0;
-        pronto    = (Eatual == final_acerto || Eatual == final_erro || Eatual == final_timeout) ? 1'b1 : 1'b0;
-        errou     = (Eatual == final_erro || Eatual == final_timeout) ? 1'b1 : 1'b0;
-        acertou   = (Eatual == final_acerto) ? 1'b1 : 1'b0;
-        conta     = (Eatual == espera) ? 1'b1 : 1'b0;
-		errou_timeout = (Eatual == final_timeout) ? 1'b1 : 1'b0;
-        zeraCL    = (reset || Eatual == inicializa) ? 1'b1 : 1'b0;
-        contaCL   = (Eatual == prox_sequencia || Eatual == inicializa) ? 1'b1 : 1'b0;
+        
+        acertou = (Eatual == final_acerto) ? 1'b1 : 1'b0;
 
+        errou = (Eatual == final_timeout ||
+                 Eatual == final_erro) ? 1'b1 : 1'b0;
+            
+        pronto = (Eatual == final_acerto ||
+                  Eatual == final_erro ||
+                  Eatual == final_timeout) ? 1'b1 : 1'b0;
+            
+        errou_timeout = (Eatual == final_timeout) ? 1'b1 : 1'b0;
+
+        contaC = (Eatual == proxima_jogada ||
+                  Eatual == processa_jogada_adicional) ? 1'b1 : 1'b0;
+
+        zeraC = (Eatual == inicial ||
+                 Eatual == inicializa ||
+                 Eatual == prepara_exibicao ||
+                 Eatual == inicia_rodada) ? 1'b1 : 1'b0;
+
+        registraR = (Eatual == registra_jogada ||
+                     Eatual == registra_nova_jogada) ? 1'b1 : 1'b0;
+                    
+        zeraR = (Eatual == inicial || 
+                 Eatual == inicializa) ? 1'b1 : 1'b0;
+
+        zeraCL = (Eatual == inicializa) ? 1'b1 : 1'b0;
+
+        contaCL = (Eatual == aumenta_limite) ? 1'b1 : 1'b0;
+
+        registraModo = (Eatual == inicial ||
+                        Eatual == final_acerto ||
+                        Eatual == final_erro ||
+                        Eatual == final_timeout) ? 1'b1 : 1'b0;
+        
+        escreve = (Eatual == grava_jogada) ? 1'b1 : 1'b0;
+
+        leds_BM = (Eatual == prepara_exibicao ||
+                   Eatual == mostra_jogada_inicial) ? 1'b1 : 1'b0;
+
+        mostraLeds = (Eatual == mostra_jogada_inicial ||
+                      Eatual == inicia_rodada ||
+                      Eatual == controla_sequencias ||
+                      Eatual == espera_jogada ||
+                      Eatual == registra_jogada ||
+                      Eatual == compara_jogada ||
+                      Eatual == proxima_jogada ||
+                      Eatual == processa_jogada_adicional ||
+                      Eatual == espera_jogada_adicional ||
+                      Eatual == registra_nova_jogada ||
+                      Eatual == grava_jogada ||
+                      Eatual == aumenta_limite ||
+                      Eatual == verifica_fim) ? 1'b1 : 1'b0;
         
 
-        // Saida de depuracao (estado)
-        case (Eatual)
-            inicial:            db_estado = 4'b0000;  // 0
-            inicializa:         db_estado = 4'b0001;  // 1
-            inicia_sequencia:   db_estado = 4'b0010; // 2
-            espera:             db_estado = 4'b0011;  // 3
-            registra:           db_estado = 4'b0100;  // 4
-            compara:            db_estado = 4'b0101;  // 5
-            proxima:            db_estado = 4'b0110;  // 6
-            final_sequencia:    db_estado = 4'b0111; // 7
-            prox_sequencia:     db_estado = 4'b1000; // 8
-            final_acerto:       db_estado = 4'b1010;  // A
-            final_erro:         db_estado = 4'b1110;  // E
-			final_timeout:      db_estado = 4'b1100; // C
-            zera_contador:      db_estado = 4'b1111; // F
-            default:            db_estado = 4'b1001;  // 9 (erro)
-        endcase
+        contaExibicao = (Eatual == mostra_jogada_inicial) ? 1'b1 : 1'b0;
+
+        zeraExibicao = (Eatual == inicial ||
+                        Eatual == inicializa ||
+                        Eatual == prepara_exibicao) ? 1'b1 : 1'b0;
+
+        contaTimeout = (Eatual == espera_jogada ||
+                        Eatual == espera_jogada_adicional) ? 1'b1 : 1'b0;
+
+        zeraTimeout = (Eatual == inicial ||
+                       Eatual == inicializa ||
+                       Eatual == inicia_rodada ||
+                       Eatual == controla_sequencias ||
+                       Eatual == proxima_jogada ||
+                       Eatual == processa_jogada_adicional ||
+                       Eatual == registra_jogada ||      
+                       Eatual == registra_nova_jogada ||    
+                       Eatual == aumenta_limite) ? 1'b1 : 1'b0;
+
+        resetEdgeDetector = (Eatual == inicial ||
+                             Eatual == inicializa) ? 1'b1 : 1'b0;
+
     end
+
+    // Saida de depuracao (estado)
+        always @* begin
+            case (Eatual)
+                inicial:                    db_estado = 5'b00000; // 0
+                inicializa:                 db_estado = 5'b00001; // 1
+                prepara_exibicao:           db_estado = 5'b00010; // 2
+                mostra_jogada_inicial:      db_estado = 5'b00011; // 3
+                inicia_rodada:              db_estado = 5'b00100; // 4
+                controla_sequencias:        db_estado = 5'b00101; // 5
+                espera_jogada:              db_estado = 5'b00110; // 6
+                registra_jogada:            db_estado = 5'b00111; // 7
+                compara_jogada:             db_estado = 5'b01000; // 8
+                proxima_jogada:             db_estado = 5'b01001; // 9
+                final_acerto:               db_estado = 5'b01010; // A
+                processa_jogada_adicional:  db_estado = 5'b01011; // B
+                espera_jogada_adicional:    db_estado = 5'b01100; // C
+                registra_nova_jogada:       db_estado = 5'b01101; // D
+                final_erro:                 db_estado = 5'b01110; // E
+                grava_jogada:               db_estado = 5'b01111; // F
+                aumenta_limite:             db_estado = 5'b10000; // 10
+                verifica_fim:               db_estado = 5'b10001; // 11
+                final_timeout:              db_estado = 5'b10010; // 12
+                default:                    db_estado = 5'b11111; // erro
+            endcase
+        end
 
 
 endmodule

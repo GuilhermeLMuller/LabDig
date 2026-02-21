@@ -23,7 +23,7 @@ module circuito_exp5 (
     output ganhou,
     output perdeu,  
     output pronto,  
-    output [3:0] leds,  // Trocar para leds_rgb (de 3 bits [2:0] leds_rgb)
+    output [2:0] leds, 
     output timeout,
 
     output db_igual,

@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-module circuito_exp6_tb_4;
+module circuito_exp6_tb_6;
 
     // Entradas do DUT
     reg        clock_in   = 1;
@@ -108,20 +108,17 @@ module circuito_exp6_tb_4;
         botoes_in = 4'b0100; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(200) * clockPeriod);
 
         // -------------------------
-        // Rodada 3 (limite = 2 e erra por timeout): 0001, 0010
+        // Rodada 3 (reset)
         // -------------------------
         caso = 5;
-        botoes_in = 4'b0001; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(80) * clockPeriod);
-        botoes_in = 4'b0010; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(10100) * clockPeriod);
+        reset_in = 1;
+        #(time'(2) * clockPeriod);
+        reset_in = 0;
+        #(time'(10) * clockPeriod);
 
-        // tempo pro FSM concluir (verifica_fim -> final_acerto)
+        // tempo pro FSM concluir
         #(time'(300) * clockPeriod);
 
-        // Checagens
-        if (timeout_out) $display("ERRO: timeout_out deveria ser 0 (timeout desabilitado).");
-        if (perdeu_out)  $display("ERRO: perdeu_out deveria ser 0 (jogadas corretas).");
-        if (!ganhou_out) $display("ERRO: esperado ganhou_out=1 ao final do modo demonstracao.");
-        if (!pronto_out) $display("AVISO: esperado pronto_out=1 no estado final (confira waveform).");
 
         $display("Fim da simulacao");
         $stop;

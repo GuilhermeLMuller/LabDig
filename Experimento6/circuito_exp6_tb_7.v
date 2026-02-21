@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-module circuito_exp6_tb_4;
+module circuito_exp6_tb_7;
 
     // Entradas do DUT
     reg        clock_in   = 1;
@@ -30,10 +30,9 @@ module circuito_exp6_tb_4;
     wire       db_zeraCL_out;
 
     // Clock 1 kHz (como você vinha usando)
-    time clockPeriod = 1_000_000; // ns  (1ms)
+    parameter clockPeriod = 1_000_000; // ns
     reg [31:0] caso = 0;
 
-    // Gerador de clock
     always #((clockPeriod/2)) clock_in = ~clock_in;
 
     // DUT
@@ -71,9 +70,9 @@ module circuito_exp6_tb_4;
         // -------------------------
         caso = 1;
         reset_in = 1;
-        #(time'(2) * clockPeriod);
+        #(2*clockPeriod);
         reset_in = 0;
-        #(time'(10) * clockPeriod);
+        #(10*clockPeriod);
 
         // ----------------------------------------------------------
         // Caso 2: Modo demonstracao (4 rodadas) e SEM timeout
@@ -81,41 +80,42 @@ module circuito_exp6_tb_4;
         //   - configuracao[1]=0 => timeout desabilitado
         // ----------------------------------------------------------
         caso = 2;
-        configuracao_in = 2'b11; // modo=11 (mantido como você colocou)
-        #(time'(1) * clockPeriod);
+        configuracao_in = 2'b01; // modo=1, timeout=0
+        #(clockPeriod);
 
         // pulso de jogar (registra configuracao e inicia)
         jogar_in = 1;
-        #(time'(5) * clockPeriod);
+        #(5*clockPeriod);
         jogar_in = 0;
 
         // espera terminar a exibicao inicial (2s = 2000 clocks)
-        #(time'(2100) * clockPeriod);
+        #(2100*clockPeriod);
 
         // -------------------------
         // Rodada 1 (limite = 0): 0001 + add 0010
         // -------------------------
         caso = 3;
-        botoes_in = 4'b0001; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(80) * clockPeriod);
-        botoes_in = 4'b0010; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(200) * clockPeriod);
+        botoes_in = 4'b0001; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
+        botoes_in = 4'b0010; #(20*clockPeriod); botoes_in = 4'b0000; #(200*clockPeriod);
 
         // -------------------------
         // Rodada 2 (limite = 1): 0001, 0010 + add 0100
         // -------------------------
         caso = 4;
-        botoes_in = 4'b0001; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(80) * clockPeriod);
-        botoes_in = 4'b0010; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(80) * clockPeriod);
-        botoes_in = 4'b0100; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(200) * clockPeriod);
+        botoes_in = 4'b0001; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
+        botoes_in = 4'b0010; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
+        botoes_in = 4'b0100; #(20*clockPeriod); botoes_in = 4'b0000; #(200*clockPeriod);
 
         // -------------------------
-        // Rodada 3 (limite = 2 e erra por timeout): 0001, 0010
+        // Rodada 3 (limite = 2 e erra jogada): 0001, 0010, 1000 (este ultimo eh a jogada errada, deveria ser 0100)
         // -------------------------
         caso = 5;
-        botoes_in = 4'b0001; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(80) * clockPeriod);
-        botoes_in = 4'b0010; #(time'(20) * clockPeriod); botoes_in = 4'b0000; #(time'(10100) * clockPeriod);
+        botoes_in = 4'b0001; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
+        botoes_in = 4'b0010; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
+        botoes_in = 4'b1000; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
 
         // tempo pro FSM concluir (verifica_fim -> final_acerto)
-        #(time'(300) * clockPeriod);
+        #(300*clockPeriod);
 
         // Checagens
         if (timeout_out) $display("ERRO: timeout_out deveria ser 0 (timeout desabilitado).");

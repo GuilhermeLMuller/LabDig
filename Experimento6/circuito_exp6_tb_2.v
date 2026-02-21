@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-module circuito_exp6_tb;
+module circuito_exp6_tb_2;
 
     // Entradas do DUT
     reg        clock_in   = 1;

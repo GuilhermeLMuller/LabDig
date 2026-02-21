@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-module circuito_exp6;
+module circuito_exp6_tb;
 
     // Entradas do DUT
     reg        clock_in   = 1;
@@ -91,19 +91,6 @@ module circuito_exp6;
         // espera terminar a exibicao inicial (2s = 2000 clocks)
         #(2100*clockPeriod);
 
-        // ----------------------------------------------------------
-        // REGRA DO SEU JOGO (do jeito que você implementou):
-        // - Só mem[0] precisa estar correto no começo.
-        // - Depois, quem define mem[1], mem[2], mem[3]... é o jogador
-        //   (pela escrita na RAM em grava_jogada).
-        //
-        // Como sua ram_init.txt tem mem[0]=0001, vamos:
-        //  Rodada 1: repete 0001 e adiciona 0010  -> escreve mem[1]=0010
-        //  Rodada 2: repete 0001,0010 e adiciona 0100 -> escreve mem[2]=0100
-        //  Rodada 3: repete 0001,0010,0100 e adiciona 1000 -> escreve mem[3]=1000
-        //  Rodada 4: repete 0001,0010,0100,1000 e adiciona 0001 (qualquer válida)
-        // ----------------------------------------------------------
-
         // -------------------------
         // Rodada 1 (limite = 0): 0001 + add 0010
         // -------------------------
@@ -129,7 +116,7 @@ module circuito_exp6;
         botoes_in = 4'b1000; #(20*clockPeriod); botoes_in = 4'b0000; #(200*clockPeriod);
 
         // -------------------------
-        // Rodada 4 (limite = 3): 0001, 0010, 0100, 1000 + add 0001
+        // Rodada 4 (limite = 3): 0001, 0010, 0100, 1000
         // (esse "add" final é o que faz você atingir fimTotal depois do aumenta_limite)
         // -------------------------
         caso = 6;
@@ -137,7 +124,6 @@ module circuito_exp6;
         botoes_in = 4'b0010; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
         botoes_in = 4'b0100; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
         botoes_in = 4'b1000; #(20*clockPeriod); botoes_in = 4'b0000; #(80*clockPeriod);
-        botoes_in = 4'b0001; #(20*clockPeriod); botoes_in = 4'b0000; #(400*clockPeriod);
 
         // tempo pro FSM concluir (verifica_fim -> final_acerto)
         #(300*clockPeriod);

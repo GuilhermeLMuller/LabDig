@@ -126,7 +126,7 @@ module unidade_controle (
 
 
             compara_jogada:
-                Eprox = (igual) ? ((fimRodada) ? processa_jogada_adicional : 
+                Eprox = (igual) ? ((fimRodada) ? verifica_fim : 
                                                    proxima_jogada) : final_erro;
 
             
@@ -153,11 +153,11 @@ module unidade_controle (
 
             
             aumenta_limite:
-                Eprox = verifica_fim;
+                Eprox = inicia_rodada;
 
             
             verifica_fim: 
-                Eprox = fimTotal ? final_acerto : inicia_rodada;
+                Eprox = fimTotal ? final_acerto : processa_jogada_adicional;
 
 
             

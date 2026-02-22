@@ -60,6 +60,8 @@ module circuito_exp6 (
     wire configTimeout_reg_w;
     wire [2:0] leds_rgb_w;
 
+    wire botoes_fixo_w;
+
     unidade_controle UC (
         .fimTotal (fimTotal_w),
         .fimRodada (fimRodada_w),
@@ -90,6 +92,7 @@ module circuito_exp6 (
         .contaTimeout (contaTimeout_w),
         .zeraTimeout (zeraTimeout_w),
         .resetEdgeDetector (resetEdgeDetector_w),
+        .botoes_fixo(botoes_fixo_w),
         .db_estado (db_estado_w)
     );
 
@@ -112,6 +115,7 @@ module circuito_exp6 (
         .resetEdgeDetector (resetEdgeDetector_w),
         .seletorLedsBM (leds_BM_w),
         .mostraLeds (mostraLeds_w),
+        .botoes_fixo(botoes_fixo_w),
         .fimRodada (fimRodada_w),
         .fimTotal (fimTotal_w),
         .igual (igual_w),

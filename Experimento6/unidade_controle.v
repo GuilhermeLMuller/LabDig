@@ -52,6 +52,8 @@ module unidade_controle (
 
     output reg resetEdgeDetector,
 
+    output reg botoes_fixo;
+
 
     output reg [4:0] db_estado
 );
@@ -214,7 +216,8 @@ module unidade_controle (
                         Eatual == final_erro ||
                         Eatual == final_timeout) ? 1'b1 : 1'b0;
         
-        escreve = (Eatual == grava_jogada) ? 1'b1 : 1'b0;
+        escreve = (Eatual == grava_jogada ||
+                   Eatual == prepara_exibicao) ? 1'b1 : 1'b0;
 
         leds_BM = (Eatual == prepara_exibicao ||
                    Eatual == mostra_jogada_inicial) ? 1'b1 : 1'b0;
@@ -255,6 +258,8 @@ module unidade_controle (
 
         resetEdgeDetector = (Eatual == inicial ||
                              Eatual == inicializa) ? 1'b1 : 1'b0;
+
+        botoes_fixo = (Eatual == prepara_exibicao) ? 1'b1 : 1'b0;
 
     end
 

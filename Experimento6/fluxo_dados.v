@@ -35,6 +35,7 @@ module fluxo_dados (
     input resetEdgeDetector, // sinal que zera o edge detector
     input seletorLedsBM, // seleciona qual a saída será exibida nos leds
     input mostraLeds,  // sinal que permite a exibição dos leds
+    input botoes_fixo; // sinal que indica se o dado da memória é botões ou valor fixo
     output fimRodada, // sinal que indica o fim da rodada
     output fimTotal, // sinal que indica o final do jogo
     output igual, // sinal que indica que botões é igual a dado de memória
@@ -77,6 +78,7 @@ module fluxo_dados (
     wire [3:0] contadorLimite_wire;
     wire RegModo_wire;
     wire [3:0] muxDecoder_wire;
+    wire [3:0] muxBotoesFixo_wire;
 
 
     // COMPONENTES:
@@ -160,7 +162,7 @@ module fluxo_dados (
     sync_ram_16x4_file #(.BINFILE("ram_init.txt")) MemJog (
         .clk  (clock),  
         .we   (escreve),  
-        .data (B_wire),
+        .data (muxBotoesFixo_wire),
         .addr (memoria_address_wire),
         .q    (data_out_wire)   
     );
@@ -216,6 +218,14 @@ module fluxo_dados (
         .en(mostraLeds),
         .dados(muxDecoder_wire),
         .leds_rgb(leds_rgb)
+    );
+
+
+    mux2x1 muxBotoesFixo (
+        .D0(botoes),
+        .D1(4'b0001), // Vermelho
+        .SEL(botoes_fixo),
+        .OUT(muxBotoesFixo_wire)
     );
 
     // ASSIGNS DE DEPURAÇÃO

@@ -52,7 +52,7 @@ module unidade_controle (
 
     output reg resetEdgeDetector,
 
-    output reg botoes_fixo;
+    output reg botoes_fixo,
 
 
     output reg [4:0] db_estado

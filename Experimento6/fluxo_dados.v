@@ -35,7 +35,7 @@ module fluxo_dados (
     input resetEdgeDetector, // sinal que zera o edge detector
     input seletorLedsBM, // seleciona qual a saída será exibida nos leds
     input mostraLeds,  // sinal que permite a exibição dos leds
-    input botoes_fixo; // sinal que indica se o dado da memória é botões ou valor fixo
+    input botoes_fixo, // sinal que indica se o dado da memória é botões ou valor fixo
     output fimRodada, // sinal que indica o fim da rodada
     output fimTotal, // sinal que indica o final do jogo
     output igual, // sinal que indica que botões é igual a dado de memória

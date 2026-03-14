@@ -1,8 +1,8 @@
 //------------------------------------------------------------------
-// Arquivo   : circuito_exp6.v
-// Projeto   : Circuito da experiência 6
+// Arquivo   : circuito_semana1.v
+// Projeto   : Circuito da semana 1 de desenvolvimento do projeto
 //------------------------------------------------------------------
-// Descricao : Circuito de integração para experiência 6
+// Descricao : Circuito de integração para a semana 1
 //          
 //------------------------------------------------------------------
 // Revisoes  :
@@ -11,10 +11,11 @@
 //     31/01/2026  1.1     Fernando Ivanov    ajuste dos leds
 //     07/02/2026  1.2     Guilherme Muller   adaptacao para experiencia 5
 //     20/02/2026  1.3     Fernando Ivanov    adaptacao para experiencia 6
+//     14/03/2026  2.0     Fernando Ivanov    adaptação para a semana 1
 //------------------------------------------------------------------
 //
 
-module circuito_exp6 (
+module circuito_semana1 (
     input clock,
     input reset,
     input jogar,  

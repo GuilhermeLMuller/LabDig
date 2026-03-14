@@ -55,7 +55,7 @@ module fluxo_dados (
     // Fios de conexão 
 
     wire [3:0] modoMux_w;
-    wire [1:0] modoReg_w
+    wire [1:0] modoReg_w;
     wire [3:0] contador_w;
     wire [5:0] registrador_w;
     wire [5:0] memoriaData_w;

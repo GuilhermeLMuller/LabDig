@@ -41,7 +41,7 @@ module circuito_semana1 (
 
     wire fimHistoria_w, fimExibicao_w;
     wire igual_w, jogada_feita_w;
-    wire contaC_w, zeraC_w, registraR_w, zeraR_w,;
+    wire contaC_w, zeraC_w, registraR_w, zeraR_w;
     wire registraModo_w, escreve_w, leds_BM_w, mostraLeds_w;
     wire contaExibicao_w, zeraExibicao_w;
     wire resetEdgeDetector_w;

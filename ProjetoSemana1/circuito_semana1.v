@@ -18,89 +18,81 @@
 module circuito_semana1 (
     input clock,
     input reset,
-    input jogar,  
-    input [3:0] botoes,  
-    input [1:0] configuracao,
+    input contar,  
+    input recontar,
+    input relembrar,
+    input [5:0] botoes,  
+    input [1:0] escolhe_tamanho,
 
-    output ganhou,
-    output perdeu,  
-    output pronto,  
-    output [2:0] leds, 
-    output timeout,
+    output acertou,
+    output errou,   
+    output [2:0] leds,
+    output contando,
+    output recontando,
+    output relembrando,
 
-    output db_igual,
     output [6:0] db_contagem,
-    output [6:0] db_memoria,
     output [6:0] db_estado,
-    output [6:0] db_jogadafeita,
-    output db_clock,
-    output db_iniciar,
-    output db_tem_jogada,
-    output db_timeout,
-    output db_fimRodada,
-    output db_zeraCL
+    output [5:0] db_memoria
+    
  );
 
     // Fios para ligação
 
-    wire fimTotal_w, fimRodada_w, fimTimeout_w, fimExibicao_w;
+    wire fimHistoria_w, fimExibicao_w;
     wire igual_w, jogada_feita_w;
-
-    wire contaC_w, zeraC_w, registraR_w, zeraR_w, zeraCL_w, contaCL_w;
+    wire contaC_w, zeraC_w, registraR_w, zeraR_w,;
     wire registraModo_w, escreve_w, leds_BM_w, mostraLeds_w;
     wire contaExibicao_w, zeraExibicao_w;
-    wire contaTimeout_w, zeraTimeout_w;
     wire resetEdgeDetector_w;
-
-    wire [4:0] db_estado_w;
-
-    wire [3:0] db_contagem_hex_w;
-    wire [3:0] db_memoria_hex_w;
-    wire [3:0] db_jogada_hex_w;
-
-    wire configTimeout_reg_w;
     wire [2:0] leds_rgb_w;
 
-    wire botoes_fixo_w;
+    wire [4:0] db_estado_w;
+    wire [3:0] db_contagem_w;
+    wire [5:0] db_memoria_w;
+
 
     unidade_controle UC (
-        .fimTotal (fimTotal_w),
-        .fimRodada (fimRodada_w),
-        .fimTimeout (fimTimeout_w),
+        // Entradas do fluxo de dados
+        .fimHistoria (fimHistoria_w),
         .fimExibicao (fimExibicao_w),
-        .clock (clock),
-        .igual (igual_w),
-        .iniciar (jogar),
         .jogada (jogada_feita_w),
+        .igual (igual_w),
+
+        // Entradas externas
+        .clock (clock),
         .reset (reset),
-        .configuracaoTimeout (configTimeout_reg_w),
-        .acertou (ganhou),
-        .errou (perdeu),
-        .pronto (pronto),
-        .errou_timeout (timeout),
+        .contar (contar),
+        .recontar (recontar),
+        .relembrar (relembrar),
+
+        // Saídas externas
+        .acertou (acertou),
+        .errou (errou),
+        .contando (contando),
+        .relembrando (relembrando),
+        .recontando (recontando),
+
+        // Saídas para o fluxo de dados
         .contaC (contaC_w),
         .zeraC (zeraC_w),
         .registraR (registraR_w),
         .zeraR (zeraR_w),
-        .zeraCL (zeraCL_w),
-        .contaCL (contaCL_w),
         .registraModo (registraModo_w),
         .escreve (escreve_w),
         .leds_BM (leds_BM_w),
         .mostraLeds (mostraLeds_w),
         .contaExibicao (contaExibicao_w),
         .zeraExibicao (zeraExibicao_w),
-        .contaTimeout (contaTimeout_w),
-        .zeraTimeout (zeraTimeout_w),
         .resetEdgeDetector (resetEdgeDetector_w),
-        .botoes_fixo(botoes_fixo_w),
+
+        // Debug
         .db_estado (db_estado_w)
     );
 
     fluxo_dados FD (
-        .zeraCL (zeraCL_w),
-        .contaCL (contaCL_w),
-        .modo (configuracao),
+        // Entradas
+        .escolhe_tamanho (escolhe_tamanho),
         .registraModo (registraModo_w),
         .clock (clock),
         .zeraC (zeraC_w),
@@ -109,28 +101,22 @@ module circuito_semana1 (
         .zeraR (zeraR_w),
         .registraR (registraR_w),
         .botoes (botoes),
-        .contaTimeout (contaTimeout_w),
-        .zeraTimeout (zeraTimeout_w),
         .contaExibicao (contaExibicao_w),
         .zeraExibicao (zeraExibicao_w),
         .resetEdgeDetector (resetEdgeDetector_w),
         .seletorLedsBM (leds_BM_w),
         .mostraLeds (mostraLeds_w),
-        .botoes_fixo(botoes_fixo_w),
-        .fimRodada (fimRodada_w),
-        .fimTotal (fimTotal_w),
+
+        // Saídas
+        .fimHistoria (fimHistoria_w),
         .igual (igual_w),
-        .fimC (),
         .jogada_feita (jogada_feita_w),
-        .fimTimeout (fimTimeout_w),
         .fimExibicao (fimExibicao_w),
         .leds_rgb (leds_rgb_w),
-        .configTimeout_reg (configTimeout_reg_w),
-        .db_tem_jogada (db_tem_jogada),
-        .db_contagem (db_contagem_hex_w),
-        .db_memoria (db_memoria_hex_w),
-        .db_jogada (db_jogada_hex_w),
-        .db_sequencia ()
+
+        // Debug
+        .db_contagem (db_contagem_w),
+        .db_memoria (db_memoria_w)
     );
 
     estado7seg HEX3 (
@@ -139,28 +125,12 @@ module circuito_semana1 (
     );
 
     hexa7seg HEX0 (
-        .hexa   (db_contagem_hex_w),
+        .hexa   (db_contagem_w),
         .display(db_contagem)
     );
 
-    hexa7seg HEX2 (
-    .hexa   (db_jogada_hex_w),
-    .display(db_jogadafeita)
-);
-
-    hexa7seg HEX1 (
-        .hexa   (db_memoria_hex_w),
-        .display(db_memoria)
-    );
-
-
+    assign db_memoria = db_memoria_w;
     assign leds = leds_rgb_w;
-    assign db_igual = igual_w;
-    assign db_clock = clock;
-    assign db_iniciar = jogar;
-    assign db_timeout = timeout;  
-    assign db_fimRodada = fimRodada_w;
-    assign db_zeraCL = zeraCL_w;
 
 
 endmodule

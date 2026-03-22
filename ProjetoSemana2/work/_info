@@ -10,7 +10,7 @@ z2
 cModel Technology
 dC:/intelFPGA_lite/20.1
 vcircuito_semana2
-Z0 !s110 1774167017
+Z0 !s110 1774168535
 !i10b 1
 !s100 22GVh<4Y;HWHP;Xf4NH:F1
 Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -20,20 +20,20 @@ Z3 dC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2
 w1774165000
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/circuito_semana2.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/circuito_semana2.v
-!i122 114
+!i122 155
 L0 19 139
 Z4 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z5 !s108 1774167017.000000
+Z5 !s108 1774168535.000000
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/circuito_semana2.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/circuito_semana2.v|
 !i113 1
 Z6 o-work work
 Z7 tCvgOpt 0
 vcircuito_semana2_tb1
-Z8 !s110 1774167020
+Z8 !s110 1774168542
 !i10b 1
 !s100 OSN]>;G^Tk499>Nn<>ge?1
 R1
@@ -43,13 +43,13 @@ R3
 w1774167000
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v
-!i122 127
+!i122 168
 L0 3 118
 R4
 r1
 !s85 0
 31
-Z9 !s108 1774167020.000000
+Z9 !s108 1774168542.000000
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v|
 !i113 1
@@ -58,16 +58,16 @@ R7
 vcircuito_semana2_tb2
 R8
 !i10b 1
-!s100 0k4ZZ0DkoPaVYYKY8JWfi1
+!s100 jXIhmVUR?meR?zL?07_^[1
 R1
-IJe6lG=hO_ARi3g@_VOGU`2
+ICm0mcB>]BMA>^2IJg^5zm1
 R2
 R3
-w1774166210
+w1774168518
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb2.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb2.v
-!i122 128
-L0 3 117
+!i122 169
+L0 3 125
 R4
 r1
 !s85 0
@@ -89,7 +89,7 @@ R3
 Z10 w1774111191
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_6bits.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_6bits.v
-!i122 115
+!i122 156
 L0 16 14
 R4
 r1
@@ -102,7 +102,7 @@ R5
 R6
 R7
 vcomparador_85
-R0
+Z11 !s110 1774168536
 !i10b 1
 !s100 9o[>Z<4JMn9[jLcB]E0Z]0
 R1
@@ -112,7 +112,7 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_85.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_85.v
-!i122 116
+!i122 157
 L0 19 14
 R4
 r1
@@ -125,7 +125,7 @@ R5
 R6
 R7
 vcontador_163
-Z11 !s110 1774167018
+R11
 !i10b 1
 !s100 4a76?@J2e9623WjA_HcQ_3
 R1
@@ -135,13 +135,13 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_163.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_163.v
-!i122 117
+!i122 158
 L0 19 16
 R4
 r1
 !s85 0
 31
-R5
+Z12 !s108 1774168536.000000
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_163.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_163.v|
 !i113 1
@@ -158,13 +158,13 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m.v
-!i122 118
+!i122 159
 L0 20 37
 R4
 r1
 !s85 0
 31
-Z12 !s108 1774167018.000000
+R12
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m.v|
 !i113 1
@@ -181,7 +181,7 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m_tb.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m_tb.v
-!i122 119
+!i122 160
 L0 20 89
 R4
 r1
@@ -194,7 +194,7 @@ R12
 R6
 R7
 vdecodificador_rgb
-R11
+Z13 !s110 1774168537
 !i10b 1
 !s100 k[48n;zIBJ8d0nKCT<VgQ1
 R1
@@ -204,7 +204,7 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/decodificador_rgb.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/decodificador_rgb.v
-!i122 120
+!i122 161
 L0 21 21
 R4
 r1
@@ -217,7 +217,7 @@ R12
 R6
 R7
 vedge_detector
-Z13 !s110 1774167019
+R13
 !i10b 1
 !s100 KR9azi6b@zjl4^kMMQFoB0
 R1
@@ -227,13 +227,13 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/edge_detector.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/edge_detector.v
-!i122 121
+!i122 162
 L0 22 23
 R4
 r1
 !s85 0
 31
-R12
+Z14 !s108 1774168537.000000
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/edge_detector.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/edge_detector.v|
 !i113 1
@@ -250,13 +250,13 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/estado7seg.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/estado7seg.v
-!i122 122
+!i122 163
 L0 23 44
 R4
 r1
 !s85 0
 31
-Z14 !s108 1774167019.000000
+R14
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/estado7seg.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/estado7seg.v|
 !i113 1
@@ -273,7 +273,7 @@ R3
 w1774164194
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/fluxo_dados.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/fluxo_dados.v
-!i122 123
+!i122 164
 L0 21 173
 R4
 r1
@@ -286,7 +286,7 @@ R14
 R6
 R7
 vhexa7seg
-R13
+Z15 !s110 1774168538
 !i10b 1
 !s100 J8gglkd^MBC;D@FFBAkAi0
 R1
@@ -296,7 +296,7 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/hexa7seg.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/hexa7seg.v
-!i122 124
+!i122 165
 L0 24 38
 R4
 r1
@@ -309,7 +309,7 @@ R14
 R6
 R7
 vmux2x1
-R13
+R15
 !i10b 1
 !s100 cBALFA?b6<_5=Aj]YRM^d0
 R1
@@ -319,20 +319,20 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux2x1.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux2x1.v
-!i122 125
+!i122 166
 L0 16 16
 R4
 r1
 !s85 0
 31
-R14
+Z16 !s108 1774168538.000000
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux2x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux2x1.v|
 !i113 1
 R6
 R7
 vmux4x1
-R8
+R15
 !i10b 1
 !s100 VHG>Mb4BfS;L_lzEc6Mf10
 R1
@@ -342,20 +342,20 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux4x1.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux4x1.v
-!i122 126
+!i122 167
 L0 13 20
 R4
 r1
 !s85 0
 31
-R14
+R16
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux4x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux4x1.v|
 !i113 1
 R6
 R7
 vregistrador_1
-Z15 !s110 1774167021
+Z17 !s110 1774168543
 !i10b 1
 !s100 idFzRG5Gli[A9cQC^EeSV3
 R1
@@ -365,8 +365,8 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_1.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_1.v
-!i122 129
-Z16 L0 14 20
+!i122 170
+Z18 L0 14 20
 R4
 r1
 !s85 0
@@ -378,7 +378,7 @@ R9
 R6
 R7
 vregistrador_2
-R15
+R17
 !i10b 1
 !s100 CPH69HCWFT<YGFe^lkcc=2
 R1
@@ -388,20 +388,20 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_2.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_2.v
-!i122 130
-R16
+!i122 171
+R18
 R4
 r1
 !s85 0
 31
-Z17 !s108 1774167021.000000
+Z19 !s108 1774168543.000000
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_2.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_2.v|
 !i113 1
 R6
 R7
 vregistrador_4
-R15
+R17
 !i10b 1
 !s100 khfz[YCgeENLj=ZEH6AmX3
 R1
@@ -411,20 +411,20 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_4.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_4.v
-!i122 131
+!i122 172
 L0 16 20
 R4
 r1
 !s85 0
 31
-R17
+R19
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_4.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_4.v|
 !i113 1
 R6
 R7
 vregistrador_6
-R15
+R17
 !i10b 1
 !s100 ID9QSb@=_9O5Mg@=CBTHY2
 R1
@@ -434,20 +434,20 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_6.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_6.v
-!i122 132
-R16
+!i122 173
+R18
 R4
 r1
 !s85 0
 31
-R17
+R19
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_6.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_6.v|
 !i113 1
 R6
 R7
 vsync_ram_16x6_file
-R15
+Z20 !s110 1774168544
 !i10b 1
 !s100 9QHlCgH4GYXYnjIl1A@722
 R1
@@ -457,20 +457,20 @@ R3
 R10
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/sync_ram_16x6_file.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/sync_ram_16x6_file.v
-!i122 133
+!i122 174
 L0 21 36
 R4
 r1
 !s85 0
 31
-R17
+R19
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/sync_ram_16x6_file.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/sync_ram_16x6_file.v|
 !i113 1
 R6
 R7
 vunidade_controle
-!s110 1774167022
+R20
 !i10b 1
 !s100 <EjCD0NOo>Gbe0gnMBebi0
 R1
@@ -480,13 +480,13 @@ R3
 w1774156850
 8C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/unidade_controle.v
 FC:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/unidade_controle.v
-!i122 134
+!i122 175
 L0 20 260
 R4
 r1
 !s85 0
 31
-R17
+!s108 1774168544.000000
 !s107 C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/unidade_controle.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/unidade_controle.v|
 !i113 1

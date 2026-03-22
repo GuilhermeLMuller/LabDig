@@ -46,6 +46,7 @@ module circuito_semana2_tb2;
         .relembrar    (relembrar_in),
         .botoes       (botoes_in),
         .escolhe_tamanho (escolhe_tamanho_in),
+        .historia (historia_in),
 
         .acertou       (acertou_out),
         .errou         (errou_out),
@@ -86,7 +87,7 @@ module circuito_semana2_tb2;
         // ----------------------------------------------------------
         caso = 2;
         escolhe_tamanho_in = 2'b00;
-        historia_in = 2'b00;
+        historia_in = 2'b10;
         #(10*clockPeriod);
 
         // pulso de contar (registra configuracao e jogador comeca a contar a historia)
@@ -105,8 +106,15 @@ module circuito_semana2_tb2;
         caso = 4;
         botoes_in = 6'b000001; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
         botoes_in = 6'b000010; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
-        botoes_in = 6'b000100; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
-        botoes_in = 6'b001000; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
+        botoes_in = 6'b000001; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
+        
+        // Ativar Reset
+        caso = 5;
+        #(100*clockPeriod)
+        reset_in = 1;
+
+        #(100*clockPeriod)
+        reset_in = 0;
 
 
         // tempo pro FSM concluir (verifica_fim -> final_acerto)

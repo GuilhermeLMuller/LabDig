@@ -12,14 +12,7 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	contador_163
 
-} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana1_tb1.v} {0 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana1_tb1.v}
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module circuito_semana1
--- Compiling module circuito_semana1_tb1
-** Error: C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana1_tb1.v(95): (vlog-2730) Undefined variable: 'escolhe_tamanho_in_in'.
-** Error: (vlog-13069) C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana1_tb1.v(125): near "EOF": syntax error, unexpected end of source code.
-
-} {5.0 7.0} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m.v}
+} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/contador_m.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module contador_m
 
@@ -33,6 +26,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	edge_detector
 
+} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/unidade_controle.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/unidade_controle.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module unidade_controle
+
+Top level modules:
+	unidade_controle
+
 } {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module circuito_semana2_tb1
@@ -40,12 +40,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	circuito_semana2_tb1
 
-} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/unidade_controle.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/unidade_controle.v}
+} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb2.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb2.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module unidade_controle
+-- Compiling module circuito_semana2_tb2
 
 Top level modules:
-	unidade_controle
+	circuito_semana2_tb2
 
 } {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/circuito_semana2.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/circuito_semana2.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -68,19 +68,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	contador_m_tb
 
-} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/hexa7seg.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/hexa7seg.v}
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module hexa7seg
-
-Top level modules:
-	hexa7seg
-
 } {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_85.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_85.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module comparador_85
 
 Top level modules:
 	comparador_85
+
+} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/hexa7seg.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/hexa7seg.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module hexa7seg
+
+Top level modules:
+	hexa7seg
 
 } {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux2x1.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux2x1.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020

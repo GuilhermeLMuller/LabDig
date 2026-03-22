@@ -16,7 +16,7 @@
 //------------------------------------------------------------------
 //
 
-module circuito_semana1 (
+module circuito_semana2 (
     input clock,
     input reset,
     input contar,  
@@ -43,7 +43,7 @@ module circuito_semana1 (
     output led_ciano,
     output led_roxo,
 
-    output historiaRegistrada
+    output [1:0] historiaRegistrada
     
  );
 
@@ -55,7 +55,7 @@ module circuito_semana1 (
     wire registraModo_w, escreve_w, leds_BM_w;
     wire contaExibicao_w, zeraExibicao_w;
     wire resetEdgeDetector_w;
-    wire leds_saida_w;
+    wire [5:0] leds_saida_w;
     wire limpaHistoria_w, registraHistoria_w;
 
     wire [4:0] db_estado_w;

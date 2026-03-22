@@ -1,0 +1,225 @@
+# Compile of circuito_semana2.v was successful.
+# Compile of comparador_6bits.v was successful.
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of contador_m.v was successful.
+# Compile of contador_m_tb.v was successful.
+# Compile of decodificador_rgb.v was successful.
+# Compile of edge_detector.v was successful.
+# Compile of estado7seg.v was successful.
+# Compile of fluxo_dados.v was successful.
+# Compile of hexa7seg.v was successful.
+# Compile of mux2x1.v was successful.
+# Compile of mux4x1.v was successful.
+# Compile of projeto_semana1_tb1.v failed with 2 errors.
+# Compile of projeto_semana2_tb1.v was successful.
+# Compile of projeto_semana2_tb2.v was successful.
+# Compile of registrador_1.v was successful.
+# Compile of registrador_2.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of registrador_6.v was successful.
+# Compile of sync_ram_16x6_file.v was successful.
+# Compile of unidade_controle.v was successful.
+# 22 compiles, 1 failed with 2 errors.
+vsim -gui work.circuito_semana2_tb1
+# vsim -gui work.circuito_semana2_tb1 
+# Start time: 04:39:47 on Mar 22,2026
+# Loading work.circuito_semana2_tb1
+# Loading work.circuito_semana2
+# Loading work.unidade_controle
+# Loading work.fluxo_dados
+# Loading work.edge_detector
+# Loading work.mux4x1
+# Loading work.registrador_2
+# Loading work.mux2x1
+# Loading work.comparador_6bits
+# Loading work.comparador_85
+# Loading work.contador_163
+# Loading work.registrador_6
+# Loading work.sync_ram_16x6_file
+# Loading work.contador_m
+# Loading work.estado7seg
+# Loading work.hexa7seg
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 23, found 22.
+#    Time: 0 ns  Iteration: 0  Instance: /circuito_semana2_tb1/dut File: C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v Line: 41
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'historiaRegistrada'. The port definition is at: C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/circuito_semana2.v(46).
+#    Time: 0 ns  Iteration: 0  Instance: /circuito_semana2_tb1/dut File: C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v Line: 41
+# ** Warning: (vsim-3722) C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v(41): [TFMPC] - Missing connection for port 'historia'.
+add wave -position insertpoint  \
+sim:/circuito_semana2_tb1/clock_in \
+sim:/circuito_semana2_tb1/reset_in \
+sim:/circuito_semana2_tb1/contar_in \
+sim:/circuito_semana2_tb1/recontar_in \
+sim:/circuito_semana2_tb1/relembrar_in \
+sim:/circuito_semana2_tb1/botoes_in \
+sim:/circuito_semana2_tb1/escolhe_tamanho_in \
+sim:/circuito_semana2_tb1/historia_in \
+sim:/circuito_semana2_tb1/acertou_out \
+sim:/circuito_semana2_tb1/errou_out \
+sim:/circuito_semana2_tb1/contando_out \
+sim:/circuito_semana2_tb1/recontando_out \
+sim:/circuito_semana2_tb1/relembrando_out \
+sim:/circuito_semana2_tb1/led_vermelho_out \
+sim:/circuito_semana2_tb1/led_verde_out \
+sim:/circuito_semana2_tb1/led_amarelo_out \
+sim:/circuito_semana2_tb1/led_azul_out \
+sim:/circuito_semana2_tb1/led_ciano_out \
+sim:/circuito_semana2_tb1/led_roxo_out \
+sim:/circuito_semana2_tb1/historiaRegistrada_out \
+sim:/circuito_semana2_tb1/db_contagem_out \
+sim:/circuito_semana2_tb1/db_memoria_out \
+sim:/circuito_semana2_tb1/db_estado_out \
+sim:/circuito_semana2_tb1/caso
+run -all
+# Inicio da simulacao
+# Fim da simulacao
+# ** Note: $stop    : C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v(116)
+#    Time: 1127 ms  Iteration: 0  Instance: /circuito_semana2_tb1
+# Break in Module circuito_semana2_tb1 at C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v line 116
+# Compile of circuito_semana2.v was successful.
+# Compile of comparador_6bits.v was successful.
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of contador_m.v was successful.
+# Compile of contador_m_tb.v was successful.
+# Compile of decodificador_rgb.v was successful.
+# Compile of edge_detector.v was successful.
+# Compile of estado7seg.v was successful.
+# Compile of fluxo_dados.v was successful.
+# Compile of hexa7seg.v was successful.
+# Compile of mux2x1.v was successful.
+# Compile of mux4x1.v was successful.
+# Compile of projeto_semana1_tb1.v failed with 2 errors.
+# Compile of projeto_semana2_tb1.v was successful.
+# Compile of projeto_semana2_tb2.v was successful.
+# Compile of registrador_1.v was successful.
+# Compile of registrador_2.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of registrador_6.v was successful.
+# Compile of sync_ram_16x6_file.v was successful.
+# Compile of unidade_controle.v was successful.
+# 22 compiles, 1 failed with 2 errors.
+vsim -gui work.circuito_semana2_tb1
+# End time: 04:58:04 on Mar 22,2026, Elapsed time: 0:18:17
+# Errors: 0, Warnings: 10
+# vsim -gui work.circuito_semana2_tb1 
+# Start time: 04:58:04 on Mar 22,2026
+# Loading work.circuito_semana2_tb1
+# Loading work.circuito_semana2
+# Loading work.unidade_controle
+# Loading work.fluxo_dados
+# Loading work.edge_detector
+# Loading work.mux4x1
+# Loading work.registrador_2
+# Loading work.mux2x1
+# Loading work.comparador_6bits
+# Loading work.comparador_85
+# Loading work.contador_163
+# Loading work.registrador_6
+# Loading work.sync_ram_16x6_file
+# Loading work.contador_m
+# Loading work.estado7seg
+# Loading work.hexa7seg
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 23, found 22.
+#    Time: 0 ns  Iteration: 0  Instance: /circuito_semana2_tb1/dut File: C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v Line: 41
+# ** Warning: (vsim-3722) C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v(41): [TFMPC] - Missing connection for port 'historia'.
+add wave -position insertpoint  \
+sim:/circuito_semana2_tb1/reset_in \
+sim:/circuito_semana2_tb1/contar_in \
+sim:/circuito_semana2_tb1/recontar_in \
+sim:/circuito_semana2_tb1/relembrar_in \
+sim:/circuito_semana2_tb1/botoes_in \
+sim:/circuito_semana2_tb1/escolhe_tamanho_in \
+sim:/circuito_semana2_tb1/historia_in \
+sim:/circuito_semana2_tb1/acertou_out \
+sim:/circuito_semana2_tb1/errou_out \
+sim:/circuito_semana2_tb1/contando_out \
+sim:/circuito_semana2_tb1/recontando_out \
+sim:/circuito_semana2_tb1/relembrando_out \
+sim:/circuito_semana2_tb1/led_vermelho_out \
+sim:/circuito_semana2_tb1/led_verde_out \
+sim:/circuito_semana2_tb1/led_amarelo_out \
+sim:/circuito_semana2_tb1/led_azul_out \
+sim:/circuito_semana2_tb1/led_ciano_out \
+sim:/circuito_semana2_tb1/led_roxo_out \
+sim:/circuito_semana2_tb1/historiaRegistrada_out
+run -all
+# Inicio da simulacao
+# Fim da simulacao
+# ** Note: $stop    : C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v(116)
+#    Time: 1127 ms  Iteration: 0  Instance: /circuito_semana2_tb1
+# Break in Module circuito_semana2_tb1 at C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v line 116
+# Compile of circuito_semana2.v was successful.
+# Compile of comparador_6bits.v was successful.
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of contador_m.v was successful.
+# Compile of contador_m_tb.v was successful.
+# Compile of decodificador_rgb.v was successful.
+# Compile of edge_detector.v was successful.
+# Compile of estado7seg.v was successful.
+# Compile of fluxo_dados.v was successful.
+# Compile of hexa7seg.v was successful.
+# Compile of mux2x1.v was successful.
+# Compile of mux4x1.v was successful.
+# Compile of projeto_semana1_tb1.v failed with 2 errors.
+# Compile of projeto_semana2_tb1.v was successful.
+# Compile of projeto_semana2_tb2.v was successful.
+# Compile of registrador_1.v was successful.
+# Compile of registrador_2.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of registrador_6.v was successful.
+# Compile of sync_ram_16x6_file.v was successful.
+# Compile of unidade_controle.v was successful.
+# 22 compiles, 1 failed with 2 errors.
+vsim -gui work.circuito_semana2_tb1
+# End time: 05:11:32 on Mar 22,2026, Elapsed time: 0:13:28
+# Errors: 0, Warnings: 4
+# vsim -gui work.circuito_semana2_tb1 
+# Start time: 05:11:32 on Mar 22,2026
+# Loading work.circuito_semana2_tb1
+# Loading work.circuito_semana2
+# Loading work.unidade_controle
+# Loading work.fluxo_dados
+# Loading work.edge_detector
+# Loading work.mux4x1
+# Loading work.registrador_2
+# Loading work.mux2x1
+# Loading work.comparador_6bits
+# Loading work.comparador_85
+# Loading work.contador_163
+# Loading work.registrador_6
+# Loading work.sync_ram_16x6_file
+# Loading work.contador_m
+# Loading work.estado7seg
+# Loading work.hexa7seg
+add wave -position insertpoint  \
+sim:/circuito_semana2_tb1/reset_in \
+sim:/circuito_semana2_tb1/contar_in \
+sim:/circuito_semana2_tb1/recontar_in \
+sim:/circuito_semana2_tb1/relembrar_in \
+sim:/circuito_semana2_tb1/botoes_in \
+sim:/circuito_semana2_tb1/escolhe_tamanho_in \
+sim:/circuito_semana2_tb1/historia_in \
+sim:/circuito_semana2_tb1/acertou_out \
+sim:/circuito_semana2_tb1/errou_out \
+sim:/circuito_semana2_tb1/contando_out \
+sim:/circuito_semana2_tb1/recontando_out \
+sim:/circuito_semana2_tb1/relembrando_out \
+sim:/circuito_semana2_tb1/led_vermelho_out \
+sim:/circuito_semana2_tb1/led_verde_out \
+sim:/circuito_semana2_tb1/led_amarelo_out \
+sim:/circuito_semana2_tb1/led_azul_out \
+sim:/circuito_semana2_tb1/led_ciano_out \
+sim:/circuito_semana2_tb1/led_roxo_out \
+sim:/circuito_semana2_tb1/historiaRegistrada_out \
+sim:/circuito_semana2_tb1/caso
+run -all
+# Inicio da simulacao
+# Fim da simulacao
+# ** Note: $stop    : C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v(117)
+#    Time: 1127 ms  Iteration: 0  Instance: /circuito_semana2_tb1
+# Break in Module circuito_semana2_tb1 at C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/projeto_semana2_tb1.v line 117
+# Error Undo Start called while in Redo capture mode
+# Error Undo Start called while in Redo capture mode
+# Error Undo Start called while in Redo capture mode

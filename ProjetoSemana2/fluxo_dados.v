@@ -45,7 +45,7 @@ module fluxo_dados (
     output jogada_feita, // sinal que indica que houve jogada
     output fimExibicao, // sinal que indica que houve fim dos 2 segundos
     output [5:0] leds_saida, // sinal que indica os leds de saída
-    output [1:0] historiaRegistrada // sinal que indica a história selecionada
+    output [1:0] historiaRegistrada, // sinal que indica a história selecionada
 
 
     // SINAIS DE DEPURAÇÃO: (a fazer)

@@ -28,7 +28,7 @@ module fluxo_dados (
     input escreve, // sinal que permite escrita na ram
     input zeraR,  // sinal que zera registrador de botões
     input registraR,  // sinal que permite o registro dos botões 
-    input [5:0] botoes, // botoes com as jogadas feitas
+    input [5:0] botoes, // botoes com as jogadas feitas (VEM EXTERNO)
     input contaExibicao, // sinal que permite a contagem do contador do timer
     input zeraExibicao,  // sinal que zera o contador do timer
     input resetEdgeDetector, // sinal que zera o edge detector
@@ -72,9 +72,24 @@ module fluxo_dados (
     wire [10:0] Q_wire_exibicao;
     wire meio_wire_exibicao;
     wire fimC;
+    wire [5:0] botoes_debounced;
+
+
 
 
     // COMPONENTES:
+
+    genvar i;
+
+    generate 
+        for(i = 0; i < 6; i++) begin
+            debounce debouncei (
+                .clk(clock),
+                .button_in(botoes[i]),
+                .button_out(botoes_debounced[i])
+            );
+        end
+    endgenerate 
 
     edge_detector detector ( 
         .clock (clock),
@@ -101,7 +116,7 @@ module fluxo_dados (
     );
 
     mux2x1 muxLed (
-        .D0 (botoes),
+        .D0 (botoes_debounced),
         .D1 (memoriaData_w),
         .SEL (seletorLedsBM),
         .OUT (muxDecoder_w)
@@ -144,7 +159,7 @@ module fluxo_dados (
         .clock (clock),
         .clear (zeraR),
         .enable (registraR),
-        .D (botoes),
+        .D (botoes_debounced),
         .Q (registrador_w)
     );
 
@@ -183,8 +198,13 @@ module fluxo_dados (
     
     // ASSIGNS ADICIONAIS PARA LÓGICA COMBINATÓRIA
 
-    assign OrEdgeDetector_w = (botoes[0] || botoes[1] || botoes[2] || botoes[3] || botoes[4] || botoes[5]);
-
+    assign OrEdgeDetector_w = (botoes_debounced[0] || 
+                               botoes_debounced[1] || 
+                               botoes_debounced[2] || 
+                               botoes_debounced[3] || 
+                               botoes_debounced[4] || 
+                               botoes_debounced[5]);
+    
 
     // ASSIGNS PARA SINAIS DE SAÍDA
 

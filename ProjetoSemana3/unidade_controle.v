@@ -28,10 +28,10 @@ module unidade_controle (
 
     // Vindas externamente
     input clock,
-    input reset,
-    input contar,
-    input recontar,
-    input relembrar, 
+    input reset, // VEM BOTÃO
+    input contar, // VEM BOTÃO
+    input recontar, // VEM BOTÃO
+    input relembrar, // VEM BOTÃO
 
 
     // SAÍDAS 
@@ -68,6 +68,37 @@ module unidade_controle (
     output reg [4:0] db_estado
 );
 
+    wire reset_debounced;
+    wire contar_debounced;
+    wire recontar_debounced;
+    wire relembrar_debounced;
+
+    debounce debounce_reset (
+        .clk(clock),
+        .button_in(reset),
+        .button_out(reset_debounced)
+    );
+
+    debounce debounce_contar (
+        .clk(clock),
+        .button_in(contar),
+        .button_out(contar_debounced)
+    );
+
+    debounce debounce_recontar (
+        .clk(clock),
+        .button_in(recontar),
+        .button_out(recontar_debounced)
+    );
+
+    debounce debounce_relembrar (
+        .clk(clock),
+        .button_in(relembrar),
+        .button_out(relembrar_debounced)
+    );
+
+
+
     // Define estados
     parameter inicial                      = 5'b00000;  // 0
     parameter inicializa                   = 5'b00001;  // 1
@@ -79,11 +110,11 @@ module unidade_controle (
     parameter proxima_jogada_contagem      = 5'b00111;  // 7
     parameter prepara_recontagem           = 5'b01000;  // 8
     parameter espera_jogada_recontagem     = 5'b01001;  // 9
-    parameter fim_acertou                      = 5'b01010;  // A
+    parameter fim_acertou                  = 5'b01010;  // A
     parameter registra_jogada_recontagem   = 5'b01011;  // B
     parameter compara_jogada               = 5'b01100;  // C
     parameter proxima_jogada_recontagem    = 5'b01101;  // D
-    parameter fim_errou                        = 5'b01110;  // E
+    parameter fim_errou                    = 5'b01110;  // E
     parameter prepara_relembrar            = 5'b01111;  // F
     parameter mostra_jogada                = 5'b10000;  // 10
     parameter zera_timer                   = 5'b10001;  // 11
@@ -95,8 +126,8 @@ module unidade_controle (
     reg [4:0] Eatual, Eprox;
 
     // Memoria de estado
-    always @(posedge clock or posedge reset) begin
-        if (reset)
+    always @(posedge clock or posedge reset_debounced) begin
+        if (reset_debounced)
             Eatual <= inicial;
         else
             Eatual <= Eprox;
@@ -107,7 +138,7 @@ module unidade_controle (
         case (Eatual)
 
             inicial:
-                Eprox = (contar) ? inicializa : inicial;
+                Eprox = (contar_debounced) ? inicializa : inicial;
 
             inicializa:
                 Eprox = prepara_contagem;
@@ -143,10 +174,10 @@ module unidade_controle (
                 Eprox = (igual) ? ((fimHistoria) ? fim_acertou : proxima_jogada_recontagem) : fim_errou;
             
             fim_acertou:
-                Eprox = (contar) ? inicializa : fim_acertou;
+                Eprox = (contar_debounced) ? inicializa : fim_acertou;
             
             fim_errou:
-                Eprox = (recontar) ? inicializa : ((relembrar) ? prepara_relembrar : fim_errou);
+                Eprox = (recontar_debounced) ? inicializa : ((relembrar_debounced) ? prepara_relembrar : fim_errou);
 
             proxima_jogada_recontagem:
                 Eprox = espera_jogada_recontagem;
@@ -244,8 +275,8 @@ module unidade_controle (
 
         registraHistoria = (Eatual == inicial ||
                             Eatual == inicializa ||
-                            Eatual == acertou ||
-                            Eatual == errou) ? 1'b1 : 1'b0;
+                            Eatual == fim_acertou ||
+                            Eatual == fim_errou) ? 1'b1 : 1'b0;
 
         limpaHistoria = 1'b0;
 

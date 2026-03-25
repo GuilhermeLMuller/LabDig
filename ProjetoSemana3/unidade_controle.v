@@ -242,9 +242,12 @@ module unidade_controle (
         resetEdgeDetector = (Eatual == inicial ||
                              Eatual == inicializa) ? 1'b1 : 1'b0;
 
-        registraHistoria = (Eatual == inicializa) ? 1'b1 : 1'b0;
+        registraHistoria = (Eatual == inicial ||
+                            Eatual == inicializa ||
+                            Eatual == acertou ||
+                            Eatual == errou) ? 1'b1 : 1'b0;
 
-        limpaHistoria = (Eatual == inicial) ? 1'b1 : 1'b0;
+        limpaHistoria = 1'b0;
 
     end
 

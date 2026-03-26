@@ -59,3 +59,4 @@ module hexa7seg (hexa, display);
         default: display = 7'b1111111;
     endcase
 endmodule
+

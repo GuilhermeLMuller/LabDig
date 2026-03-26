@@ -9,7 +9,7 @@ module circuito_semana2_tb2;
     reg        recontar_in = 0;
     reg        relembrar_in = 0;
     reg  [5:0] botoes_in  = 6'b000000;
-    reg  [1:0] escolhe_tamanho_in = 2'b00; // [00]=4 leds, [01]=8, [10]=12, [11] = 16
+    reg  [1:0] escolhe_tamanho_in = 2'b00;
     reg  [1:0] historia_in = 2'b00;
 
     // Saídas do DUT
@@ -24,14 +24,17 @@ module circuito_semana2_tb2;
     wire       led_azul_out;
     wire       led_ciano_out;
     wire       led_roxo_out;
-    wire [1:0] historiaRegistrada_out;
+
+    // NOVOS SINAIS
+    wire       serial_out;
+    wire       pronto_serial_out;
 
     // Depuração
     wire [6:0] db_contagem_out;
     wire [5:0] db_memoria_out;
     wire [6:0] db_estado_out;
 
-    // Clock 1 kHz (como você vinha usando)
+    // Clock 1 kHz
     parameter clockPeriod = 1_000_000; // ns
     reg [31:0] caso = 0;
 
@@ -46,7 +49,7 @@ module circuito_semana2_tb2;
         .relembrar    (relembrar_in),
         .botoes       (botoes_in),
         .escolhe_tamanho (escolhe_tamanho_in),
-        .historia (historia_in),
+        .historia     (historia_in),
 
         .acertou       (acertou_out),
         .errou         (errou_out),
@@ -65,7 +68,9 @@ module circuito_semana2_tb2;
         .led_ciano    (led_ciano_out),
         .led_roxo     (led_roxo_out),
 
-        .historiaRegistrada (historiaRegistrada_out)
+        // NOVAS PORTAS
+        .serial        (serial_out),
+        .pronto_serial (pronto_serial_out)
     );
 
     initial begin
@@ -80,48 +85,55 @@ module circuito_semana2_tb2;
         reset_in = 0;
         #(10*clockPeriod);
 
-        // ----------------------------------------------------------
-        // Caso 2: Modo demonstracao (historia com sequencia de 4 botoes)
-        //   - configuracao[0]=0 
-        //   - configuracao[1]=0
-        // ----------------------------------------------------------
+        // -------------------------
+        // Caso 2: Configuração
+        // -------------------------
         caso = 2;
         escolhe_tamanho_in = 2'b00;
         historia_in = 2'b10;
         #(10*clockPeriod);
 
-        // pulso de contar (registra configuracao e jogador comeca a contar a historia)
+        // Pulso de início
         contar_in = 1;
         #(5*clockPeriod);
         contar_in = 0;
 
-        // Conta a historia com sequencia de 4 botoes
+        // -------------------------
+        // Caso 3: Sequência correta
+        // -------------------------
         caso = 3;
-        botoes_in = 6'b000001; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
-        botoes_in = 6'b000010; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
-        botoes_in = 6'b000100; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
-        botoes_in = 6'b001000; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
+        botoes_in = 6'b000001; #(20*clockPeriod); botoes_in = 0; #(80*clockPeriod);
+        botoes_in = 6'b000010; #(20*clockPeriod); botoes_in = 0; #(80*clockPeriod);
+        botoes_in = 6'b000100; #(20*clockPeriod); botoes_in = 0; #(80*clockPeriod);
+        botoes_in = 6'b001000; #(20*clockPeriod); botoes_in = 0; #(80*clockPeriod);
 
-        // Recontar a historia
+        // -------------------------
+        // Caso 4: Sequência com erro
+        // -------------------------
         caso = 4;
-        botoes_in = 6'b000001; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
-        botoes_in = 6'b000010; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
-        botoes_in = 6'b000001; #(20*clockPeriod); botoes_in = 6'b000000; #(80*clockPeriod);
-        
-        // Ativar Reset
+        botoes_in = 6'b000001; #(20*clockPeriod); botoes_in = 0; #(80*clockPeriod);
+        botoes_in = 6'b000010; #(20*clockPeriod); botoes_in = 0; #(80*clockPeriod);
+        botoes_in = 6'b000001; #(20*clockPeriod); botoes_in = 0; #(80*clockPeriod);
+
+        // -------------------------
+        // Caso 5: Reset no meio
+        // -------------------------
         caso = 5;
-        #(100*clockPeriod)
+        #(100*clockPeriod);
         reset_in = 1;
 
-        #(100*clockPeriod)
+        #(100*clockPeriod);
         reset_in = 0;
 
-
-        // tempo pro FSM concluir (verifica_fim -> final_acerto)
         #(300*clockPeriod);
 
         $display("Fim da simulacao");
         $stop;
+    end
+
+    // Monitor simples do serial
+    always @(posedge pronto_serial_out) begin
+        $display("Transmissao serial concluida em t=%0t", $time);
     end
 
 endmodule

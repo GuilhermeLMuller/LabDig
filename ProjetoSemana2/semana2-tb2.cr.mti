@@ -89,13 +89,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	mux2x1
 
-} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_1.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_1.v}
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module registrador_1
-
-Top level modules:
-	registrador_1
-
 } {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/estado7seg.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/estado7seg.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module estado7seg
@@ -103,19 +96,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	estado7seg
 
-} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/sync_ram_16x6_file.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/sync_ram_16x6_file.v}
+} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_1.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_1.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module sync_ram_16x6_file
+-- Compiling module registrador_1
 
 Top level modules:
-	sync_ram_16x6_file
+	registrador_1
 
-} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_2.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_2.v}
+} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_6bits.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_6bits.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module registrador_2
+-- Compiling module comparador_6bits
 
 Top level modules:
-	registrador_2
+	comparador_6bits
 
 } {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux4x1.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/mux4x1.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -124,12 +117,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	mux4x1
 
-} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_6bits.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/comparador_6bits.v}
+} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_2.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/registrador_2.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module comparador_6bits
+-- Compiling module registrador_2
 
 Top level modules:
-	comparador_6bits
+	registrador_2
+
+} {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/sync_ram_16x6_file.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/sync_ram_16x6_file.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module sync_ram_16x6_file
+
+Top level modules:
+	sync_ram_16x6_file
 
 } {} {}} {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/fluxo_dados.v} {1 {vlog -work work -stats=none {C:/Users/Usuario/Desktop/Projeto - LabDig/LabDig/ProjetoSemana2/fluxo_dados.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020

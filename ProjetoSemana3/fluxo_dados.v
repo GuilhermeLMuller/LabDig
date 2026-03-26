@@ -45,7 +45,7 @@ module fluxo_dados (
     output jogada_feita, // sinal que indica que houve jogada
     output fimExibicao, // sinal que indica que houve fim dos 2 segundos
     output [5:0] leds_saida, // sinal que indica os leds de saída
-    output [1:0] historiaRegistrada, // sinal que indica a história selecionada
+    output [6:0] historiaRegistrada, // sinal que indica a história selecionada para comunicação serial
 
 
     // SINAIS DE DEPURAÇÃO: (a fazer)
@@ -73,12 +73,12 @@ module fluxo_dados (
     wire meio_wire_exibicao;
     wire fimC;
     wire [5:0] botoes_debounced;
-
+    wire [1:0] historiaRegistrada_w;
 
 
 
     // COMPONENTES:
-
+    
     genvar i;
 
     generate 
@@ -168,7 +168,7 @@ module fluxo_dados (
         .clear (limpaHistoria),
         .enable (registraHistoria),
         .D (historia),
-        .Q (historiaRegistrada)
+        .Q (historiaRegistrada_w)
     );
 
     sync_ram_16x6_file #(.BINFILE("ram_init.txt")) MemJog (
@@ -190,6 +190,7 @@ module fluxo_dados (
     );
 
 
+
     // ASSIGNS DE DEPURAÇÃO
 
     assign db_contagem = contador_w;
@@ -205,6 +206,8 @@ module fluxo_dados (
                                botoes_debounced[4] || 
                                botoes_debounced[5]);
     
+    assign historiaRegistrada = {5'b00000, historiaRegistrada_w[1], historiaRegistrada_w[0]};
+
 
     // ASSIGNS PARA SINAIS DE SAÍDA
 

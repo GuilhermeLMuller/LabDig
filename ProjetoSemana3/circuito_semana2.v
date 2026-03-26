@@ -43,8 +43,8 @@ module circuito_semana2 (
     output led_ciano,
     output led_roxo,
 
-    output [1:0] historiaRegistrada
-    
+    output serial,
+    output pronto_serial
  );
 
     // Fios para ligação
@@ -57,6 +57,7 @@ module circuito_semana2 (
     wire resetEdgeDetector_w;
     wire [5:0] leds_saida_w;
     wire limpaHistoria_w, registraHistoria_w;
+    wire [6:0] historiaRegistrada_w;
 
     wire [4:0] db_estado_w;
     wire [3:0] db_contagem_w;
@@ -127,11 +128,25 @@ module circuito_semana2 (
         .jogada_feita (jogada_feita_w),
         .fimExibicao (fimExibicao_w),
         .leds_saida (leds_saida_w),
-        .historiaRegistrada (historiaRegistrada),
+        .historiaRegistrada (historiaRegistrada_w),
 
         // Debug
         .db_contagem (db_contagem_w),
         .db_memoria (db_memoria_w)
+    );
+
+    tx_serial_7N2 modulo_serial (
+        .clock (clock),
+        .reset (reset),
+        .partida (contar), // entradas
+        .dados_ascii (historiaRegistrada_w),
+        .saida_serial (serial), // saidas 
+        .pronto (pronto_serial),
+        .db_clock (), // DESCONECTADA saidas de depuracao
+        .db_tick (), // DESCONECTADA
+        .db_partida (), // DESCONECTADA
+        .db_saida_serial (), // DESCONECTADA
+        .db_estado () // DESCONECTADA       
     );
 
     estado7seg HEX3 (

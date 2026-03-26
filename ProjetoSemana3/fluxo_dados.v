@@ -82,7 +82,7 @@ module fluxo_dados (
     genvar i;
 
     generate 
-        for(i = 0; i < 6; i++) begin
+        for(i = 0; i < 6; i = i + 1) begin: gen_debounce
             debounce debouncei (
                 .clk(clock),
                 .button_in(botoes[i]),

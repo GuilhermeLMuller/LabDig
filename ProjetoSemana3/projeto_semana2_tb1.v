@@ -79,7 +79,7 @@ module circuito_semana2_tb1;
         // Reset
         caso = 1;
         reset_in = 1;
-        #(2*clockPeriod);
+        #(20*clockPeriod);
         reset_in = 0;
         #(10*clockPeriod);
 
@@ -91,7 +91,7 @@ module circuito_semana2_tb1;
 
         // Início transmissão
         contar_in = 1;
-        #(5*clockPeriod);
+        #(20*clockPeriod);
         contar_in = 0;
 
         // Sequência de botões

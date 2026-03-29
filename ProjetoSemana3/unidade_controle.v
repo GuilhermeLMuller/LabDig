@@ -33,6 +33,9 @@ module unidade_controle (
     input recontar, // VEM BOTÃO
     input relembrar, // VEM BOTÃO
 
+    // Vindas do módulo serial
+    input pronto_serial,
+
 
     // SAÍDAS 
 
@@ -62,6 +65,9 @@ module unidade_controle (
 
     output reg registraHistoria,
     output reg limpaHistoria,
+
+    // Que irão para o módulo serial
+    output reg partida_serial,
 
 
 
@@ -121,9 +127,12 @@ module unidade_controle (
     parameter verifica_fim_relembrar       = 5'b10010;  // 12
     parameter mostra_apagado               = 5'b10011;  // 13
     parameter aumenta_limite_relembrar     = 5'b10100;  // 14
+    parameter envia_serial                 = 5'b10101;  // 15
+    parameter espera_serial                = 5'b10110;  // 16
 
     // Variaveis de estado
     reg [4:0] Eatual, Eprox;
+    reg [4:0] pulse_counter;
 
     // Memoria de estado
     always @(posedge clock or posedge reset_debounced) begin
@@ -144,7 +153,7 @@ module unidade_controle (
                 Eprox = prepara_contagem;
 
             prepara_contagem:
-                Eprox = espera_jogada_contagem;
+                Eprox = envia_serial;
 
             espera_jogada_contagem:
                 Eprox = (jogada) ? registra_jogada_contagem : espera_jogada_contagem;
@@ -199,6 +208,12 @@ module unidade_controle (
 
             aumenta_limite_relembrar:
                 Eprox = mostra_jogada;
+
+            envia_serial:
+                Eprox = espera_serial;
+
+            espera_serial:
+                Eprox = (pronto_serial) ? espera_jogada_contagem : espera_serial;
 
             default:
                 Eprox = inicial;
@@ -280,6 +295,8 @@ module unidade_controle (
 
         limpaHistoria = 1'b0;
 
+        partida_serial = (Eatual == envia_serial);
+
     end
 
     // Saida de depuracao (estado)
@@ -306,6 +323,8 @@ module unidade_controle (
             verifica_fim_relembrar:         db_estado = 5'b10010; // 12
             mostra_apagado:                 db_estado = 5'b10011; // 13
             aumenta_limite_relembrar:       db_estado = 5'b10100; // 14
+            envia_serial:                   db_estado = 5'b10101; // 15
+            espera_serial:                  db_estado = 5'b10110; // 16
             default:                        db_estado = 5'b11111; // erro
         endcase
     end

@@ -58,6 +58,8 @@ module circuito_semana2 (
     wire [5:0] leds_saida_w;
     wire limpaHistoria_w, registraHistoria_w;
     wire [6:0] historiaRegistrada_w;
+    wire partida_serial_w;
+    wire pronto_serial_w;
 
     wire [4:0] db_estado_w;
     wire [3:0] db_contagem_w;
@@ -77,6 +79,8 @@ module circuito_semana2 (
         .contar (contar),
         .recontar (recontar),
         .relembrar (relembrar),
+
+        .pronto_serial (pronto_serial_w),
 
         // Saídas externas
         .acertou (acertou),
@@ -98,6 +102,8 @@ module circuito_semana2 (
         .resetEdgeDetector (resetEdgeDetector_w),
         .registraHistoria (registraHistoria_w),
         .limpaHistoria (limpaHistoria_w),
+
+        .partida_serial (partida_serial_w),
 
         // Debug
         .db_estado (db_estado_w)
@@ -138,10 +144,10 @@ module circuito_semana2 (
     tx_serial_7N2 modulo_serial (
         .clock (clock),
         .reset (reset),
-        .partida (contar), // entradas
+        .partida (partida_serial_w), // entradas
         .dados_ascii (historiaRegistrada_w),
         .saida_serial (serial), // saidas 
-        .pronto (pronto_serial),
+        .pronto (pronto_serial_w),
         .db_clock (), // DESCONECTADA saidas de depuracao
         .db_tick (), // DESCONECTADA
         .db_partida (), // DESCONECTADA
@@ -168,5 +174,6 @@ module circuito_semana2 (
     assign led_verde = leds_saida_w[4];
     assign led_roxo = leds_saida_w[5];
 
+    assign pronto_serial = pronto_serial_w;
 
 endmodule

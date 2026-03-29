@@ -206,7 +206,7 @@ module fluxo_dados (
                                botoes_debounced[4] || 
                                botoes_debounced[5]);
     
-    assign historiaRegistrada = {5'b00000, historiaRegistrada_w[1], historiaRegistrada_w[0]};
+    assign historiaRegistrada = 7'h30 + {5'b00000, historiaRegistrada_w[1], historiaRegistrada_w[0]};
 
 
     // ASSIGNS PARA SINAIS DE SAÍDA

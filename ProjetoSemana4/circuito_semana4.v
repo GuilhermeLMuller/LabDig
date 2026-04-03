@@ -13,6 +13,7 @@
 //     20/02/2026  1.3     Fernando Ivanov    adaptacao para experiencia 6
 //     14/03/2026  2.0     Fernando Ivanov    adaptação para a semana 1
 //     21/03/2026  2.1     Thiago Martins     Adaptação para a semana 2
+//     03/04/2026  3.1     Fernando Ivanov    Adaptação para a semana 4 (inicial)
 //------------------------------------------------------------------
 //
 

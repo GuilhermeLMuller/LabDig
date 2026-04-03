@@ -17,7 +17,7 @@
 //------------------------------------------------------------------
 //
 
-module circuito_semana2 (
+module circuito_semana4 (
     input clock,
     input reset,
     input contar,  
@@ -25,7 +25,6 @@ module circuito_semana2 (
     input relembrar,
     input [5:0] botoes,  
     input [1:0] escolhe_tamanho,
-    input [1:0] historia,
 
     output acertou,
     output errou,   
@@ -36,16 +35,15 @@ module circuito_semana2 (
     output [6:0] db_contagem,
     output [6:0] db_estado,
     output [5:0] db_memoria,
+    output [1:0] db_tamanhohistoria,
 
     output led_vermelho,
     output led_verde,
     output led_amarelo,
     output led_azul,
     output led_ciano,
-    output led_roxo,
+    output led_roxo
 
-    output serial,
-    output pronto_serial
  );
 
     // Fios para ligação
@@ -57,12 +55,11 @@ module circuito_semana2 (
     wire contaExibicao_w, zeraExibicao_w;
     wire resetEdgeDetector_w;
     wire [5:0] leds_saida_w;
-    wire limpaHistoria_w, registraHistoria_w;
-    wire [6:0] historiaRegistrada_w;
 
     wire [4:0] db_estado_w;
     wire [3:0] db_contagem_w;
     wire [5:0] db_memoria_w;
+    wire [1:0] db_tamanhohistoria_w;
 
 
     unidade_controle UC (
@@ -97,8 +94,6 @@ module circuito_semana2 (
         .contaExibicao (contaExibicao_w),
         .zeraExibicao (zeraExibicao_w),
         .resetEdgeDetector (resetEdgeDetector_w),
-        .registraHistoria (registraHistoria_w),
-        .limpaHistoria (limpaHistoria_w),
 
         // Debug
         .db_estado (db_estado_w)
@@ -119,9 +114,6 @@ module circuito_semana2 (
         .zeraExibicao (zeraExibicao_w),
         .resetEdgeDetector (resetEdgeDetector_w),
         .seletorLedsBM (leds_BM_w),
-        .historia (historia),
-        .registraHistoria (registraHistoria_w),
-        .limpaHistoria (limpaHistoria_w),
 
         // Saídas
         .fimHistoria (fimHistoria_w),
@@ -129,25 +121,11 @@ module circuito_semana2 (
         .jogada_feita (jogada_feita_w),
         .fimExibicao (fimExibicao_w),
         .leds_saida (leds_saida_w),
-        .historiaRegistrada (historiaRegistrada_w),
 
         // Debug
         .db_contagem (db_contagem_w),
-        .db_memoria (db_memoria_w)
-    );
-
-    tx_serial_7N2 modulo_serial (
-        .clock (clock),
-        .reset (reset),
-        .partida (contar), // entradas
-        .dados_ascii (historiaRegistrada_w),
-        .saida_serial (serial), // saidas 
-        .pronto (pronto_serial),
-        .db_clock (), // DESCONECTADA saidas de depuracao
-        .db_tick (), // DESCONECTADA
-        .db_partida (), // DESCONECTADA
-        .db_saida_serial (), // DESCONECTADA
-        .db_estado () // DESCONECTADA       
+        .db_memoria (db_memoria_w),
+        .db_tamanhohistoria(db_tamanhohistoria_w)
     );
 
     estado7seg HEX3 (
@@ -161,6 +139,7 @@ module circuito_semana2 (
     );
 
     assign db_memoria = db_memoria_w;
+    assign db_tamanhohistoria = db_tamanhohistoria_w;
 
     assign led_vermelho = leds_saida_w[0];
     assign led_amarelo = leds_saida_w[1];

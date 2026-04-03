@@ -33,9 +33,7 @@ module fluxo_dados (
     input zeraExibicao,  // sinal que zera o contador do timer
     input resetEdgeDetector, // sinal que zera o edge detector
     input seletorLedsBM, // seleciona qual a saída será exibida nos leds
-    input [1:0] historia, // seleciona a história a ser jogada
-    input registraHistoria, // sinal que indica se a historia pode ser selecionada
-    input limpaHistoria, // Limpa a historia selecionada
+
 
     // SAÍDAS
 
@@ -45,13 +43,13 @@ module fluxo_dados (
     output jogada_feita, // sinal que indica que houve jogada
     output fimExibicao, // sinal que indica que houve fim dos 2 segundos
     output [5:0] leds_saida, // sinal que indica os leds de saída
-    output [6:0] historiaRegistrada, // sinal que indica a história selecionada para comunicação serial
 
 
     // SINAIS DE DEPURAÇÃO: (a fazer)
 
     output [3:0] db_contagem,
-    output [5:0] db_memoria
+    output [5:0] db_memoria,
+    output [1:0] db_tamanhohistoria
 
 );
 
@@ -73,7 +71,7 @@ module fluxo_dados (
     wire meio_wire_exibicao;
     wire fimC;
     wire [5:0] botoes_debounced;
-    wire [1:0] historiaRegistrada_w;
+
 
 
 
@@ -163,14 +161,6 @@ module fluxo_dados (
         .Q (registrador_w)
     );
 
-    registrador_2 registradorHistoria (
-        .clock (clock),
-        .clear (limpaHistoria),
-        .enable (registraHistoria),
-        .D (historia),
-        .Q (historiaRegistrada_w)
-    );
-
     sync_ram_16x6_file #(.BINFILE("ram_init.txt")) MemJog (
         .clk  (clock),  
         .we   (escreve),  
@@ -195,6 +185,7 @@ module fluxo_dados (
 
     assign db_contagem = contador_w;
     assign db_memoria = memoriaData_w;
+    assign db_tamanhohistoria = modoReg_w;
 
     
     // ASSIGNS ADICIONAIS PARA LÓGICA COMBINATÓRIA
@@ -205,8 +196,6 @@ module fluxo_dados (
                                botoes_debounced[3] || 
                                botoes_debounced[4] || 
                                botoes_debounced[5]);
-    
-    assign historiaRegistrada = {5'b00000, historiaRegistrada_w[1], historiaRegistrada_w[0]};
 
 
     // ASSIGNS PARA SINAIS DE SAÍDA

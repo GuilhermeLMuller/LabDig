@@ -60,11 +60,6 @@ module unidade_controle (
 
     output reg resetEdgeDetector,
 
-    output reg registraHistoria,
-    output reg limpaHistoria,
-
-
-
     output reg [4:0] db_estado
 );
 
@@ -273,12 +268,6 @@ module unidade_controle (
         resetEdgeDetector = (Eatual == inicial ||
                              Eatual == inicializa) ? 1'b1 : 1'b0;
 
-        registraHistoria = (Eatual == inicial ||
-                            Eatual == inicializa ||
-                            Eatual == fim_acertou ||
-                            Eatual == fim_errou) ? 1'b1 : 1'b0;
-
-        limpaHistoria = 1'b0;
 
     end
 
